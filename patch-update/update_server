@@ -2,3 +2,5 @@
 
 update_info_file=https://github.com/pinHP/arcade/raw/main/patch-update/patch_info.txt
 update_patch_file=https://github.com/pinHP/arcade/raw/main/patch-update/patch_current.tgz
+advmame_rc_pi2jamma=https://github.com/pinHP/arcade/raw/main/advmame/advmame_pi2jamma/advmame.rc
+advmame_rc_pi2scart=https://github.com/pinHP/arcade/raw/main/advmame/advmame_pi2scart/advmame.rc
