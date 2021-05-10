@@ -1,3 +1,4 @@
+# 10MAY21
 # Advance Mame configuration
 # Pi2Scart mode --- DO NOT EDIT THIS LINE ---
 
@@ -89,7 +90,7 @@ device_video_modeline "512x244 (60.02 Hz)"   9.6   512 529 561 620   244 244 249
 device_video_modeline "1520x224 (59.18 Hz)"   31.96   1520 1611 1781 2038   224 231 237 265  -hsync -vsync # 15.68 kHz
 device_video_modeline "1536x256 (54.99 Hz)"   32.85   1536 1650 1810 2096   256 259 261 285  -hsync -vsync # 15.67 kHz
 device_video_modeline "1600x224 (60.00 Hz)"   31.99   1600 1650 1800 2035   224 228 236 262  -hsync -vsync # 15.72 kHz
-device_video_modeline "1600x232 (58.97 Hz)"   32.04   1600 1650 1800 2035   232 242 245 267  -hsync -vsync # 15.74 kHz
+device_video_modeline "1600x232 (58.97 Hz)"   32.04   1600 1650 1800 2035   232 243 246 267  -hsync -vsync # 15.74 kHz
 device_video_modeline "1600x240 (53.98 Hz)"   34.34   1600 1770 2050 2240   240 246 257 284  -hsync -vsync # 15.33 kHz
 #device_video_modeline "1600x240 (54.90 Hz)"   34.31   1600 1770 2050 2240   240 246 252 279  -hsync -vsync # 15.32 kHz
 device_video_modeline "1600x240 (54.88 Hz)"   34.30   1600 1770 2050 2240   240 254 260 279  -hsync -vsync # 15.31 kHz
