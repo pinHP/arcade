@@ -1,8 +1,8 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20210504
-patch_date=04MAY21
+patch_version=20210515
+patch_date=15MAY21
 patch_minversion=20210325
-patch_update_info=\n*** 04MAY21 patch update ***\n\n+ New game resolutions\n  by online update\n\nFor details see:\npi2jamma.info/pinhp-changelog\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
+patch_update_info=\n*** 15MAY21 patch update ***\n\n+ Accepts custom folders\n  inside ROM directory\n\nFor details see:\npi2jamma.info/pinhp-changelog\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
 patch_general_info=
 patch_disabled=0
