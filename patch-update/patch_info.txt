@@ -5,4 +5,4 @@ patch_date=26JUN21
 patch_minversion=20210325
 patch_update_info=\n*** 26JUN21 patch update ***\n\n+ Run external programs\n  from the menu\n\nFor details see:\npi2jamma.info/pinhp-changelog\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
 patch_general_info=
-patch_disabled=1
+patch_disabled=0
