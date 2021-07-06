@@ -1,12 +1,13 @@
 #!/usr/bin/bash
 
 # pinHP Arcade image
+# 06JUL21
 
 #
 # This script reads a joystick parameter from _games.template and switches an Ultimarc ServoStik accordingly.
 # Rename it 'runscript-mame-before.sh' and place it in '/root/scripts/custom' to run it with each game start.
 #
-# Additional software required: 'SetServoStik', to be placed in '/usr/local/bin'
+# Additional software required: SetServoStik
 # http://users.telenet.be/rgbcommander/downloads/SetServoStik.tar.gz
 #
 
