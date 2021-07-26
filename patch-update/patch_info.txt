@@ -1,6 +1,6 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=202107221
+patch_version=20210721
 patch_date=21JUL21
 patch_minversion=20210325
 patch_update_info=\n*** 21JUL21 patch update ***\n\n+ Set joy parameter via menu\n+ Set custom menu text color\n\nFor details see:\npi2jamma.info/pinhp-changelog\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
