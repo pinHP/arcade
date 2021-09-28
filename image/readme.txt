@@ -40,15 +40,21 @@ Settings are stored in "config.ini" on the USB stick.
 SUBDIRECTORIES:
 
 "roms_advmame"
-– Game ROMs for games you want to see in the menu.
-– NeoGeo BIOS (neogeo.zip) belongs here as well.
+– Game ROMs for games you want to see in the menu. Accepts subfolders.
+- Accepts subdirectories, to display a custom menu structure. Individual display names can be set with the “.title” file inside each directory. Write the name into the file and nothing else. Names preceded by a “.” (dot) will hide the directory completely, making it inaccessible from the menu. Names preceded by a “#” (hash sign) will show a blank line in the menu, but leave it accessible.
 – Edit the game definition file “_games.template” to alter display names.
   
+"bios_advmame"
+- BIOS files (e. g. neogeo.zip) belong here.
+
 "roms_unused"
 - Deleted (from pinHP menu) game roms.
 
 "snaps"
 - Preview snapshots (PNG) to be displayed in game selection menu.
+
+"logos"
+- Logos (PNG) to be displayed in game selection menu.
 
 "marquees"
 - Marquees (PNG) to be displayed in game selection menu.
@@ -149,6 +155,13 @@ Put ROMs inside "roms_advmame" folder on USB stick.
 Put snapshots (preview images) inside "snaps" folder on USB stick.
 Put preview videos inside "videos" folder on USB stick.
 
+MAME SETTINGS MENU
+
+Press TAB while inside a game to enter the MAME settings menu.
+
+When a game is internally using a “super resolution” (making it possible to run at exact refresh rates, yet Mame can still output pixel perfect resolutions), if you TAB into the settings, unreadable small lines will be shown on a vertical monitor. You need to temporarily change the game’s resolution before entering the menu. While in the game, press “.” (dot) or “,” (comma) to cycle through available resolutions, until the menu becomes readable. Then you can TAB in.
+
+You can as well backup MAME settings from the “Options” menu, edit the advmame.rc config file and restore it via the menu.
 
 KEYBOARD:
 
@@ -187,7 +200,14 @@ E.g. change the action to quit a game. This a MAME setting, so we need to access
 
 When a game is internally using a “super resolution” (making it possible to run at exact refresh rates, yet Mame can still output pixel perfect resolutions), if you TAB into the settings, unreadable small lines will be shown on a vertical monitor. You need to temporarily change the game’s resolution before entering the menu. While in the game, press “.” (dot) or “,” (comma) to cycle through available resolutions, until the menu becomes readable. Then you can TAB in.
 
-You can as well backup MAME settings from the "Options" menu, edit the advmame.rc config file and restore it via the menu.
+
+ULTIMARC® SERVOSTIK
+
+An Ultimarc® ServoStik can be triggered to switch between 4- and 8-way joystick restriction. Check ‘System Settings Menu > System Settings > Enable ServoStik’. An additional menu item ‘Toggle ServoStik’ will be available from the ‘Options’ menu, to manually switch the ServoStik. You can as well define Player2-Start button to toggle the ServoStik position: ‘System Settings Menu > System Settings > P2-Start Button’.
+
+N.B.: ‘Toggle ServoStik’ will override any automatic switching for the very next game started.
+
+To automatically switch the ServoStik at game start, select Options > Set Games 4-8-Way to define the setting for each game. You can as well manually add an appropriate joystick parameter to the game definition entry in ‘_games.template’ inside the ‘roms_advmame’ directory.
 
 
 HAVE FUN GAMING!
