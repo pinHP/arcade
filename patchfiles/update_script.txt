@@ -21,7 +21,7 @@ case $HARDWAREMODE_CURRENT in
   ;;
 esac
 
-# Download advmame.rc file
+# Download default advmame.rc file
 if ! [ -e /tmp/advmame_rc_update ]; then
   curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/advmame_rc_update "$ADVMAME_RC_UPDATE"
   response=$?
@@ -34,7 +34,7 @@ if ! [ -e /tmp/advmame_rc_update ]; then
   fi
 fi
 
-# File exists already or has been just downloaded
+### Modelines update
 if [ -e /tmp/advmame_rc_update ]; then
 
   rm /tmp/timings_current_names &> /dev/null
@@ -74,13 +74,13 @@ if [ -e /tmp/advmame_rc_update ]; then
         echo -e "\n# Added by online update" > /tmp/timings_insert_code
         cat /tmp/timings_missing >> /tmp/timings_insert_code
         echo "#" >> /tmp/timings_insert_code
-        sed -i -e '/device_video_clock/r /tmp/timings_insert_code' $ADVMHOME/advmame.rc
+        sed -i -e '/device_video_clock/r /tmp/timings_insert_code' $MAMECONFIG
   
         # Check if all lines were addded
         copycount=0
         while read line
         do
-          if grep -q "$Line" "$ADVMHOME/advmame.rc"; then
+          if grep -q "$Line" "$MAMECONFIG"; then
             ((copycount++))
           fi
         done < /tmp/timings_missing
@@ -96,71 +96,70 @@ if [ -e /tmp/advmame_rc_update ]; then
       fi
     fi
   fi
+fi
   
-  # Savestate input map
-  missing_code=""
-  missing_info=""
-  rm /tmp/missing_code &> /dev/null
-  
-  if ! grep -q "input_map\[ui_save_state\]" $MAMECONFIG; then
-    missing_info="input_map[ui_save_state]"
-    grep "input_map\[ui_save_state\]" /tmp/advmame_rc_update >> /tmp/missing_code
-  fi
-  if ! grep -q "input_map\[ui_load_state\]" $MAMECONFIG; then
-    missing_info="${missing_info}\ninput_map[ui_load_state]"
-    grep "input_map\[ui_load_state\]" /tmp/advmame_rc_update >> /tmp/missing_code
-  fi
-  
-  if [ ! -z "$missing_info" ]; then
-    dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd game savestate keys?\n\n$missing_info\n\n" 0 0
-    response=$?
-    if [ "$response" = "0" ]; then
-      rm /tmp/insert_code &> /dev/null
-      touch /tmp/insert_code
-      echo -e "\n# Added by online update" > /tmp/insert_code
-      cat /tmp/missing_code >> /tmp/insert_code
-      echo "#" >> /tmp/insert_code
-      if grep -q "^# mameconfig=." $MAMECONFIG; then
-        sed -i -e '/^# mameconfig=./r /tmp/insert_code' $MAMECONFIG
-      else
-        sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $MAMECONFIG
-      fi            
-      UPDATED="Y"
-    else
-      NOCHANGES="Y"
-    fi
-  fi
-  
-  # Mouse/spinner support
-  missing_code=""
-  missing_info=""
-  rm /tmp/missing_code &> /dev/null
-  
-  if ! grep -q "device.*mouse" $MAMECONFIG && ! grep -q "input_map.*mouse" $MAMECONFIG; then
-    dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd mouse/spinner support?\n\n" 0 0
-    response=$?
-    if [ "$response" = "0" ]; then
-      rm /tmp/insert_code &> /dev/null
-      touch /tmp/insert_code
-      grep "device.*mouse" /tmp/advmame_rc_update >> /tmp/missing_code
-      grep "input_map.*mouse" /tmp/advmame_rc_update >> /tmp/missing_code
-      echo -e "\n# Added by online update" > /tmp/insert_code
-      cat /tmp/missing_code >> /tmp/insert_code
-      echo "#" >> /tmp/insert_code
-      if grep -q "^# mameconfig=." $MAMECONFIG; then
-        sed -i -e '/^# mameconfig=./r /tmp/insert_code' $MAMECONFIG
-      else
-        sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $MAMECONFIG
-      fi            
-      UPDATED="Y"
-    else
-      NOCHANGES="Y"
-    fi
-  fi
+### Update savestate input map
+missing_code=""
+missing_info=""
+rm /tmp/missing_code &> /dev/null
 
+if ! grep -q "input_map\[ui_save_state\]" $MAMECONFIG; then
+  missing_info="input_map[ui_save_state]"
+  grep "input_map\[ui_save_state\]" /tmp/advmame_rc_update >> /tmp/missing_code
+fi
+if ! grep -q "input_map\[ui_load_state\]" $MAMECONFIG; then
+  missing_info="${missing_info}\ninput_map[ui_load_state]"
+  grep "input_map\[ui_load_state\]" /tmp/advmame_rc_update >> /tmp/missing_code
 fi
 
-# display_artwork_crop change to yes
+if [ ! -z "$missing_info" ]; then
+  dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd game savestate keys?\n\n$missing_info\n\n" 0 0
+  response=$?
+  if [ "$response" = "0" ]; then
+    rm /tmp/insert_code &> /dev/null
+    touch /tmp/insert_code
+    echo -e "\n# Added by online update" > /tmp/insert_code
+    cat /tmp/missing_code >> /tmp/insert_code
+    echo "#" >> /tmp/insert_code
+    if grep -q "^# mameconfig=." $MAMECONFIG; then
+      sed -i -e '/^# mameconfig=./r /tmp/insert_code' $MAMECONFIG
+    else
+      sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $MAMECONFIG
+    fi            
+    UPDATED="Y"
+  else
+    NOCHANGES="Y"
+  fi
+fi
+  
+### Update mouse/spinner support
+missing_code=""
+missing_info=""
+rm /tmp/missing_code &> /dev/null
+
+if ! grep -q "device.*mouse" $MAMECONFIG && ! grep -q "input_map.*mouse" $MAMECONFIG; then
+  dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd mouse/spinner support?\n\n" 0 0
+  response=$?
+  if [ "$response" = "0" ]; then
+    rm /tmp/insert_code &> /dev/null
+    touch /tmp/insert_code
+    grep "device.*mouse" /tmp/advmame_rc_update >> /tmp/missing_code
+    grep "input_map.*mouse" /tmp/advmame_rc_update >> /tmp/missing_code
+    echo -e "\n# Added by online update" > /tmp/insert_code
+    cat /tmp/missing_code >> /tmp/insert_code
+    echo "#" >> /tmp/insert_code
+    if grep -q "^# mameconfig=." $MAMECONFIG; then
+      sed -i -e '/^# mameconfig=./r /tmp/insert_code' $MAMECONFIG
+    else
+      sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $MAMECONFIG
+    fi            
+    UPDATED="Y"
+  else
+    NOCHANGES="Y"
+  fi
+fi
+
+### Update display_artwork_crop change to yes
 if grep -q "^display_artwork_crop no" $MAMECONFIG; then
   dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nCurrent MAME setting, enabling\nartwork backdrop to be displayed\nat correct game size:\n\n  'display_artwork_crop no'\n\nRecommended setting:\n\n  'display_artwork_crop yes'\n\nSet to 'yes'?\n\n" 0 0
   response=$?
@@ -172,7 +171,7 @@ if grep -q "^display_artwork_crop no" $MAMECONFIG; then
   fi
 fi
 
-# _games.template
+### Update _games.template
 UPDATE_VERSION="27SEP21"
 
 current_template_version=$( grep "version=" $TEMPLATEFILE | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
@@ -247,8 +246,7 @@ EOF
         do
         # Calculate progress
         percent=$(( 100*(++i)/favlines ))
-  
-# Update dialog box 
+
 cat <<EOF
 XXX
 $percent
