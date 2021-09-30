@@ -1,36 +1,41 @@
 #!/bin/bash
 
-ADVMHOME=$1
-hardwaremode_current=$2
-connection_timeout=30
+MAMECONFIG=$1
+HARDWAREMODE_CURRENT=$2
+TEMPLATEFILE=$3
+RPI2JAMMA=$4
+CONNECTION_TIMEOUT=30
 UPDATED="N"
+NOCHANGES="N"
 
-advmame_rc_pi2jamma=$(grep "advmame_rc_pi2jamma" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2jamma=' '{print $2}' )
-advmame_rc_pi2scart=$(grep "advmame_rc_pi2scart" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2scart=' '{print $2}' )
-case $hardwaremode_current in
+ADVMAME_RC_PI2JAMMA=$(grep "advmame_rc_pi2jamma" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2jamma=' '{print $2}' )
+ADVMAME_RC_PI2SCART=$(grep "advmame_rc_pi2scart" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2scart=' '{print $2}' )
+TEMPLATE_UPDATE=$(grep "templatefile" "/tmp/patch_server.txt" | awk -F 'templatefile=' '{print $2}' )
+
+case $HARDWAREMODE_CURRENT in
   Jamma )
-    official_advmame_file="$advmame_rc_pi2jamma"
+    ADVMAME_RC_UPDATE="$ADVMAME_RC_PI2JAMMA"
   ;;
   SCART )
-    official_advmame_file="$advmame_rc_pi2scart"
+    ADVMAME_RC_UPDATE="$ADVMAME_RC_PI2SCART"
   ;;
 esac
-echo $official_advmame_file >/tmp/official_advmame_file
+
 # Download advmame.rc file
-if ! [ -e /tmp/official_advmame.rc ]; then
-  curl --connect-timeout $connection_timeout -k -L -o /tmp/official_advmame.rc "$official_advmame_file"
+if ! [ -e /tmp/advmame_rc_update ]; then
+  curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/advmame_rc_update "$ADVMAME_RC_UPDATE"
   response=$?
-  if [ "$response" = "28" ] || [ ! -e "/tmp/official_advmame.rc" ]; then
+  if [ "$response" = "28" ] || [ ! -e "/tmp/advmame_rc_update" ]; then
     if [ "$response" = "28" ]; then
       dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection" 9 26
     else
-      dialog --timeout 15 --begin 10 9 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found" 9 22
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\nadvmame.rc" 0 0
     fi
   fi
 fi
 
 # File exists already or has been just downloaded
-if [ -e /tmp/official_advmame.rc ]; then
+if [ -e /tmp/advmame_rc_update ]; then
 
   rm /tmp/timings_current_names &> /dev/null
   rm /tmp/timings_official &> /dev/null
@@ -38,8 +43,8 @@ if [ -e /tmp/official_advmame.rc ]; then
   touch /tmp/timings_current_names
   touch /tmp/timings_official
   touch /tmp/timings_missing
-  cat $ADVMHOME/advmame.rc | grep device_video_modeline | awk -F"\"" '{print $2}' > /tmp/timings_current_names
-  cat /tmp/official_advmame.rc | grep -v "^#" | grep device_video_modeline > /tmp/timings_official
+  cat $MAMECONFIG | grep device_video_modeline | awk -F"\"" '{print $2}' > /tmp/timings_current_names
+  cat /tmp/advmame_rc_update | grep -v "^#" | grep device_video_modeline > /tmp/timings_official
   
   awk -v INPUTFILE="/tmp/timings_official" -v COMPAREFILE="/tmp/timings_current_names" -v OUTFILE="/tmp/timings_missing" -f "/root/scripts/missing_timings.awk"
   
@@ -86,27 +91,28 @@ if [ -e /tmp/official_advmame.rc ]; then
         else
           dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\n$copycount/$count_missing lines added" 9 26
         fi
-  
+      else
+        NOCHANGES="Y"
       fi
     fi
   fi
   
-  # Save state input map
+  # Savestate input map
   missing_code=""
   missing_info=""
   rm /tmp/missing_code &> /dev/null
   
-  if ! grep -q "input_map\[ui_save_state\]" $ADVMHOME/advmame.rc; then
+  if ! grep -q "input_map\[ui_save_state\]" $MAMECONFIG; then
     missing_info="input_map[ui_save_state]"
-    grep "input_map\[ui_save_state\]" /tmp/official_advmame.rc >> /tmp/missing_code
+    grep "input_map\[ui_save_state\]" /tmp/advmame_rc_update >> /tmp/missing_code
   fi
-  if ! grep -q "input_map\[ui_load_state\]" $ADVMHOME/advmame.rc; then
+  if ! grep -q "input_map\[ui_load_state\]" $MAMECONFIG; then
     missing_info="${missing_info}\ninput_map[ui_load_state]"
-    grep "input_map\[ui_load_state\]" /tmp/official_advmame.rc >> /tmp/missing_code
+    grep "input_map\[ui_load_state\]" /tmp/advmame_rc_update >> /tmp/missing_code
   fi
   
   if [ ! -z "$missing_info" ]; then
-    dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd game save state keys?\n\n$missing_info\n\n" 0 0
+    dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd game savestate keys?\n\n$missing_info\n\n" 0 0
     response=$?
     if [ "$response" = "0" ]; then
       rm /tmp/insert_code &> /dev/null
@@ -114,12 +120,14 @@ if [ -e /tmp/official_advmame.rc ]; then
       echo -e "\n# Added by online update" > /tmp/insert_code
       cat /tmp/missing_code >> /tmp/insert_code
       echo "#" >> /tmp/insert_code
-      if grep -q "^# mameconfig=." $ADVMHOME/advmame.rc; then
-        sed -i -e '/^# mameconfig=./r /tmp/insert_code' $ADVMHOME/advmame.rc
+      if grep -q "^# mameconfig=." $MAMECONFIG; then
+        sed -i -e '/^# mameconfig=./r /tmp/insert_code' $MAMECONFIG
       else
-        sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $ADVMHOME/advmame.rc
+        sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $MAMECONFIG
       fi            
-    UPDATED="Y"
+      UPDATED="Y"
+    else
+      NOCHANGES="Y"
     fi
   fi
   
@@ -128,30 +136,150 @@ if [ -e /tmp/official_advmame.rc ]; then
   missing_info=""
   rm /tmp/missing_code &> /dev/null
   
-  if ! grep -q "device.*mouse" $ADVMHOME/advmame.rc && ! grep -q "input_map.*mouse" $ADVMHOME/advmame.rc; then
+  if ! grep -q "device.*mouse" $MAMECONFIG && ! grep -q "input_map.*mouse" $MAMECONFIG; then
     dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd mouse/spinner support?\n\n" 0 0
     response=$?
     if [ "$response" = "0" ]; then
       rm /tmp/insert_code &> /dev/null
       touch /tmp/insert_code
-      grep "device.*mouse" /tmp/official_advmame.rc >> /tmp/missing_code
-      grep "input_map.*mouse" /tmp/official_advmame.rc >> /tmp/missing_code
+      grep "device.*mouse" /tmp/advmame_rc_update >> /tmp/missing_code
+      grep "input_map.*mouse" /tmp/advmame_rc_update >> /tmp/missing_code
       echo -e "\n# Added by online update" > /tmp/insert_code
       cat /tmp/missing_code >> /tmp/insert_code
       echo "#" >> /tmp/insert_code
-      if grep -q "^# mameconfig=." $ADVMHOME/advmame.rc; then
-        sed -i -e '/^# mameconfig=./r /tmp/insert_code' $ADVMHOME/advmame.rc
+      if grep -q "^# mameconfig=." $MAMECONFIG; then
+        sed -i -e '/^# mameconfig=./r /tmp/insert_code' $MAMECONFIG
       else
-        sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $ADVMHOME/advmame.rc
+        sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $MAMECONFIG
       fi            
-    UPDATED="Y"
+      UPDATED="Y"
+    else
+      NOCHANGES="Y"
     fi
   fi
 
 fi
 
+# display_artwork_crop change to yes
+if grep -q "^display_artwork_crop no" $MAMECONFIG; then
+  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nCurrent MAME setting, enabling\nartwork backdrop to be displayed\nat correct game size:\n\n  'display_artwork_crop no'\n\nRecommended setting:\n\n  'display_artwork_crop yes'\n\nSet to 'yes'?\n\n" 0 0
+  response=$?
+  if [ "$response" = "0" ]; then
+    sed -i 's/^display_artwork_crop no.*/display_artwork_crop yes/' $MAMECONFIG
+    UPDATED="Y"
+  else
+    NOCHANGES="Y"
+  fi
+fi
+
+# _games.template
+UPDATE_VERSION="27SEP21"
+
+current_template_version=$( grep "version=" $TEMPLATEFILE | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
+if [ -z "$current_template_version" ]; then
+  current_template_version="unknown"
+fi
+
+if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
+  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame definition file\n'_games.template'\n\nCurrent version: $current_template_version\nUpdate version:  $UPDATE_VERSION\n\nFavourites, saved in this\nfile, will be automatically\nbacked up and restored.\n\nCustom changes (game names\nor custom 'joy' parameter\nentries) will be set to the\nupdated default.\n\nDo you want to update?\n\n" 0 0
+  response=$?
+  if [ "$response" = "0" ]; then
+    # Download _games.template
+    clear
+    if ! [ -e /tmp/template_update ]; then
+      curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/template_update "$TEMPLATE_UPDATE"
+      response=$?
+      if [ "$response" = "28" ] || [ ! -e "/tmp/template_update" ]; then
+        if [ "$response" = "28" ]; then
+          dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection" 9 26
+        else
+          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\n_games.template\n\n" 0 0
+        fi
+      fi
+    fi
+    if [ -e /tmp/template_update ]; then
+  
+      clear
+      favcount=$( grep -E "(1ONE|1TWO|1TRE|0ALL|1FAV)" $TEMPLATEFILE | grep -v "_DUMMY" | wc -l )
+      mkdir -p $RPI2JAMMA/backup/rpi2jamma/roms_advmame      
+      cp  $TEMPLATEFILE $RPI2JAMMA/backup/rpi2jamma/roms_advmame/
+  
+      # Backup favourites         
+      counter=0
+      (
+      # Set while loop until 100 %, simulation copy progress 
+      while :
+      do
+cat <<EOF
+XXX
+$counter
+\nBackup count:\n\n$favcount game definitions
+XXX
+EOF
+      (( counter+=10 ))
+      [ $counter -gt 100 ] && break
+      sleep 0.05
+      done
+      ) |
+      dialog --title "pinHP Arcade Classics" --gauge "Please wait" 10 26
+      setterm -cursor off
+      sleep 1
+      # Backup end
+      
+      # Remove mario and pacman from default favourites
+      sed -i 's/-0ONE-0TWO-0TRE-1ALL-1FAV/-0ONE-0TWO-0TRE-1ALL-0FAV/' /tmp/template_update
+      cp /tmp/template_update $TEMPLATEFILE
+
+      # Restore favourites
+      FAVGAMES="/tmp/favgames.template"
+      if [ -e "$RPI2JAMMA/backup/rpi2jamma/roms_advmame/_games.template" ]; then
+        grep -E "(1ONE|1TWO|1TRE|0ALL|1FAV)" "$RPI2JAMMA/backup/rpi2jamma/roms_advmame/_games.template" | grep -v "_DUMMY" > "$FAVGAMES"
+        favlines=$(cat "$FAVGAMES" | wc -l)
+      fi
+  
+      if [ -e "$FAVGAMES" ] && [ "$favlines" -ne 0 ]; then
+        default_params="-0ONE-0TWO-0TRE-1ALL-0FAV"
+        cat $TEMPLATEFILE | grep -v \"_DUMMY\" | sed -i "s/params =\".*FAV\"/params =\"$default_params\"/g"
+        dialog --title "pinHP Arcade Classics" --gauge "\n Restoring: $current_rom\n\n 0 / $favlines " 10 26 < <(
+  
+        i=0
+        while read favline
+        do
+        # Calculate progress
+        percent=$(( 100*(++i)/favlines ))
+  
+# Update dialog box 
+cat <<EOF
+XXX
+$percent
+\n Restoring: $current_rom\n\n $i / $favlines
+XXX
+EOF
+  
+        current_rom=$( echo "$favline" | awk -F'"' '{print $2}' )
+        backup_params=$( cat "$FAVGAMES" | grep "rom =\"$current_rom\"" | awk -F'"' '{print $6}' )
+        sed -i "/rom =\"$current_rom\"/s/params =\".*FAV\"/params =\"$backup_params\"/" $TEMPLATEFILE 
+        done < $FAVGAMES
+  
+        )
+        setterm -cursor off
+        sleep 1
+      fi
+      rm $FAVGAMES &> /dev/null
+  
+    fi
+    UPDATED="Y"
+  else
+    NOCHANGES="Y"
+  fi
+fi
+
+
+### Final confirmation dialog ###
 if [ "$UPDATED" = "Y" ]; then
   dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nGame settings\n\nUpdate finished\n\n" 0 0
+elif [ "$NOCHANGES" = "Y" ]; then
+  dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nGame settings\n\nNo changes applied\n\n" 0 0
 else
   dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nGame settings\n\n*** up to date ***\n\n" 0 0
 fi
