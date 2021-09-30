@@ -2,6 +2,7 @@
 
 ADVMHOME=$1
 hardwaremode_current=$2
+connection_timeout=30
 UPDATED="N"
 
 advmame_rc_pi2jamma=$(grep "advmame_rc_pi2jamma" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2jamma=' '{print $2}' )
@@ -14,7 +15,7 @@ case $hardwaremode_current in
     official_advmame_file="$advmame_rc_pi2scart"
   ;;
 esac
-
+echo $official_advmame_file >/tmp/official_advmame_file
 # Download advmame.rc file
 if ! [ -e /tmp/official_advmame.rc ]; then
   curl --connect-timeout $connection_timeout -k -L -o /tmp/official_advmame.rc "$official_advmame_file"
@@ -150,8 +151,8 @@ if [ -e /tmp/official_advmame.rc ]; then
 fi
 
 if [ "$UPDATED" = "Y" ]; then
-  dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nSystem files\n\nUpdate finished\n\n" 0 0
+  dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nGame settings\n\nUpdate finished\n\n" 0 0
 else
-  dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nSystem files\n\n*** up to date ***\n\n" 0 0
+  dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nGame settings\n\n*** up to date ***\n\n" 0 0
 fi
 
