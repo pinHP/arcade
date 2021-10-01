@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# version=01OCT21
 
 MAMECONFIG=$1
 HARDWAREMODE_CURRENT=$2
