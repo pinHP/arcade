@@ -27,9 +27,9 @@ if ! [ -e /tmp/advmame_rc_update ]; then
   response=$?
   if [ "$response" = "28" ] || [ ! -e "/tmp/advmame_rc_update" ]; then
     if [ "$response" = "28" ]; then
-      dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection" 9 26
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
     else
-      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\nadvmame.rc" 0 0
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\nadvmame.rc\n\n" 0 0
     fi
   fi
 fi
@@ -37,9 +37,6 @@ fi
 ### Modelines update
 if [ -e /tmp/advmame_rc_update ]; then
 
-  rm /tmp/timings_current_names &> /dev/null
-  rm /tmp/timings_official &> /dev/null
-  rm /tmp/timings_missing &> /dev/null
   touch /tmp/timings_current_names
   touch /tmp/timings_official
   touch /tmp/timings_missing
@@ -86,16 +83,21 @@ if [ -e /tmp/advmame_rc_update ]; then
         done < /tmp/timings_missing
   
         if [ $count_missing -eq $copycount ]; then
-          dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\nSuccess!\n\n$copycount lines added" 9 26
+          dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\nSuccess!\n\n$copycount lines added\n\n" 0 0
           UPDATED="Y"
         else
-          dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\n$copycount/$count_missing lines added" 9 26
+          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\n$copycount/$count_missing lines added\n\n" 0 0
         fi
       else
         NOCHANGES="Y"
       fi
     fi
   fi
+rm /tmp/timings_current_names &> /dev/null
+rm /tmp/timings_official &> /dev/null
+rm /tmp/timings_missing &> /dev/null
+rm /tmp/timings_missing_names &> /dev/null
+rm /tmp/timings_insert_code &> /dev/null
 fi
   
 ### Update savestate input map
@@ -127,6 +129,7 @@ if [ ! -z "$missing_info" ]; then
       sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $MAMECONFIG
     fi            
     UPDATED="Y"
+    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\nGame savestate keys\n\nDone!\n\n" 0 0
   else
     NOCHANGES="Y"
   fi
@@ -154,6 +157,7 @@ if ! grep -q "device.*mouse" $MAMECONFIG && ! grep -q "input_map.*mouse" $MAMECO
       sed -i -e '/DO NOT EDIT THIS LINE/r /tmp/insert_code' $MAMECONFIG
     fi            
     UPDATED="Y"
+    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\nMouse/spinner support\n\nDone!\n\n" 0 0
   else
     NOCHANGES="Y"
   fi
@@ -161,11 +165,12 @@ fi
 
 ### Update display_artwork_crop change to yes
 if grep -q "^display_artwork_crop no" $MAMECONFIG; then
-  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nCurrent MAME setting, enabling\nartwork backdrop to be displayed\nat correct game size:\n\n  'display_artwork_crop no'\n\nRecommended setting:\n\n  'display_artwork_crop yes'\n\nSet to 'yes'?\n\n" 0 0
+  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nMAME setting, enabling artwork\nbackdrop to be displayed at\ncorrect game size\n\nCurrent setting:\n\n  'display_artwork_crop no'\n\nRecommended setting:\n\n  'display_artwork_crop yes'\n\nSet to 'yes'?\n\n" 0 0
   response=$?
   if [ "$response" = "0" ]; then
     sed -i 's/^display_artwork_crop no.*/display_artwork_crop yes/' $MAMECONFIG
     UPDATED="Y"
+    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\nArtwork backdrop\n\nDone!\n\n" 0 0
   else
     NOCHANGES="Y"
   fi
@@ -190,7 +195,7 @@ if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
       response=$?
       if [ "$response" = "28" ] || [ ! -e "/tmp/template_update" ]; then
         if [ "$response" = "28" ]; then
-          dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection" 9 26
+          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
         else
           dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\n_games.template\n\n" 0 0
         fi
@@ -267,11 +272,13 @@ EOF
   
     fi
     UPDATED="Y"
+    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\n_games.template\n\nDone!\n\n" 0 0
   else
     NOCHANGES="Y"
   fi
 fi
 
+rm /tmp/insert_code &> /dev/null
 
 ### Final confirmation dialog ###
 if [ "$UPDATED" = "Y" ]; then
