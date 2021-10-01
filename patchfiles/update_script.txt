@@ -8,6 +8,93 @@ CONNECTION_TIMEOUT=30
 UPDATED="N"
 NOCHANGES="N"
 
+pikeyd165_start ()
+{
+  if [ $1 != "$pikeyd_current" ] && [ "$HARDWAREMODE_CURRENT" = "Jamma" ]; then
+    pikeyd165_stop
+    pikeyd_current=$1
+    if [ ! -f "/etc/pikeyd165.conf" ]; then
+      cp /root/pikeyd165_default.conf /tmp/pikeyd165.conf
+      ln -sf /tmp/pikeyd165.conf /etc/pikeyd165.conf
+    fi
+
+    case $1 in
+      anykey )
+        cp /root/pikeyd165_anykey.conf /tmp/pikeyd165.conf
+      ;;
+      default )
+        cp /root/pikeyd165_default.conf /tmp/pikeyd165.conf
+      ;;
+      enterkey )
+        cp /root/pikeyd165_enterkey.conf /tmp/pikeyd165.conf
+      ;; 
+      updown )
+        cp /root/pikeyd165_updown.conf /tmp/pikeyd165.conf
+      ;;  
+      updowntabenter )
+        cp /root/pikeyd165_updowntabenter.conf /tmp/pikeyd165.conf
+      ;;
+      yesno )
+        cp /root/pikeyd165_yesno.conf /tmp/pikeyd165.conf
+      ;;
+      spacequit )
+        cp /root/pikeyd165_spacequit.conf /tmp/pikeyd165.conf
+      ;;
+      * )
+        cp /root/pikeyd165_default.conf /tmp/pikeyd165.conf
+      ;;
+    esac
+
+    /usr/bin/taskset -c 2 /root/pikeyd165 -ndb -d &> /dev/null
+    if [ ! -z $2 ]; then
+      sleep $2
+    fi
+  fi
+}
+
+pikeyd165_stop ()
+{
+    /root/pikeyd165 -k &> /dev/null
+    killall pikeyd165 &> /dev/null
+}
+
+joy2key_start ()
+{
+  case $1 in
+    anykey )
+      joy2key -config anykey &> /dev/null &
+    ;;
+    enterkey )
+      joy2key -config enterkey &> /dev/null &
+    ;;
+    yesno )
+      joy2key -config yesno &> /dev/null &
+    ;;
+    noaxis )
+      joy2key -config noaxis &> /dev/null &
+    ;;
+    escape )
+      joy2key -config escape &> /dev/null &
+    ;;
+    updown )
+      joy2key -config updown &> /dev/null &
+    ;;
+    updowntabenter )
+      joy2key -config updowntabenter &> /dev/null &
+    ;;
+    spacequit )
+      joy2key -config spacequit &> /dev/null &
+    ;;
+  esac
+}
+
+joy2key_stop ()
+{
+  pkill joy2key &> /dev/null
+}
+
+pikeyd165_start "yesno" "0.5"
+
 ADVMAME_RC_PI2JAMMA=$(grep "advmame_rc_pi2jamma" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2jamma=' '{print $2}' )
 ADVMAME_RC_PI2SCART=$(grep "advmame_rc_pi2scart" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2scart=' '{print $2}' )
 TEMPLATE_UPDATE=$(grep "templatefile" "/tmp/patch_server.txt" | awk -F 'templatefile=' '{print $2}' )
@@ -26,11 +113,13 @@ if ! [ -e /tmp/advmame_rc_update ]; then
   curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/advmame_rc_update "$ADVMAME_RC_UPDATE"
   response=$?
   if [ "$response" = "28" ] || [ ! -e "/tmp/advmame_rc_update" ]; then
+    joy2key_start "anykey"
     if [ "$response" = "28" ]; then
       dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
     else
       dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\nadvmame.rc\n\n" 0 0
     fi
+    joy2key_stop
   fi
 fi
 
@@ -59,7 +148,8 @@ if [ -e /tmp/advmame_rc_update ]; then
       dialog_array[ ($i + 1) ]=$line
       (( i=($i+2) ))
     done < /tmp/timings_missing_names
-  
+    
+    joy2key_start "yesno"
     dummy=`dialog --timeout 30 --title "pinHP Arcade Classics" --menu "\nNew video modes" 0 0 0 "${dialog_array[@]}" 3>&1 1>&2 2>&3`
     if [ ! -z $dummy ]; then
       count_missing=$( cat /tmp/timings_missing | wc -l )
@@ -92,6 +182,7 @@ if [ -e /tmp/advmame_rc_update ]; then
         NOCHANGES="Y"
       fi
     fi
+  joy2key_stop
   fi
 rm /tmp/timings_current_names &> /dev/null
 rm /tmp/timings_official &> /dev/null
@@ -115,6 +206,7 @@ if ! grep -q "input_map\[ui_load_state\]" $MAMECONFIG; then
 fi
 
 if [ ! -z "$missing_info" ]; then
+  joy2key_start "yesno"
   dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd game savestate keys?\n\n$missing_info\n\n" 0 0
   response=$?
   if [ "$response" = "0" ]; then
@@ -133,6 +225,7 @@ if [ ! -z "$missing_info" ]; then
   else
     NOCHANGES="Y"
   fi
+joy2key_stop
 fi
   
 ### Update mouse/spinner support
@@ -141,6 +234,7 @@ missing_info=""
 rm /tmp/missing_code &> /dev/null
 
 if ! grep -q "device.*mouse" $MAMECONFIG && ! grep -q "input_map.*mouse" $MAMECONFIG; then
+  joy2key_start "yesno"
   dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd mouse/spinner support?\n\n" 0 0
   response=$?
   if [ "$response" = "0" ]; then
@@ -161,10 +255,12 @@ if ! grep -q "device.*mouse" $MAMECONFIG && ! grep -q "input_map.*mouse" $MAMECO
   else
     NOCHANGES="Y"
   fi
+joy2key_stop
 fi
 
 ### Update display_artwork_crop change to yes
 if grep -q "^display_artwork_crop no" $MAMECONFIG; then
+  joy2key_start "yesno"
   dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nMAME setting, enabling artwork\nbackdrop to be displayed at\ncorrect game size\n\nCurrent setting:\n\n  'display_artwork_crop no'\n\nRecommended setting:\n\n  'display_artwork_crop yes'\n\nSet to 'yes'?\n\n" 0 0
   response=$?
   if [ "$response" = "0" ]; then
@@ -174,6 +270,7 @@ if grep -q "^display_artwork_crop no" $MAMECONFIG; then
   else
     NOCHANGES="Y"
   fi
+joy2key_stop
 fi
 
 ### Update _games.template
@@ -185,6 +282,7 @@ if [ -z "$current_template_version" ]; then
 fi
 
 if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
+  joy2key_start "yesno"
   dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame definition file\n'_games.template'\n\nCurrent version: $current_template_version\nUpdate version:  $UPDATE_VERSION\n\nFavourites, saved in this\nfile, will be automatically\nbacked up and restored.\n\nCustom changes (game names\nor custom 'joy' parameter\nentries) will be set to the\nupdated default.\n\nDo you want to update?\n\n" 0 0
   response=$?
   if [ "$response" = "0" ]; then
@@ -276,11 +374,13 @@ EOF
   else
     NOCHANGES="Y"
   fi
+joy2key_stop
 fi
 
 rm /tmp/insert_code &> /dev/null
 
 ### Final confirmation dialog ###
+joy2key_start "anykey"
 if [ "$UPDATED" = "Y" ]; then
   dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nGame settings\n\nUpdate finished\n\n" 0 0
 elif [ "$NOCHANGES" = "Y" ]; then
@@ -288,4 +388,4 @@ elif [ "$NOCHANGES" = "Y" ]; then
 else
   dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\nGame settings\n\n*** up to date ***\n\n" 0 0
 fi
-
+joy2key_stop
