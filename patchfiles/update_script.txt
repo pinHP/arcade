@@ -285,7 +285,7 @@ fi
 
 if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
   joy2key_start "yesno"
-  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame definition file\n'_games.template'\n\nCurrent version: $current_template_version\nUpdate version:  $UPDATE_VERSION\n\nFavourites, saved in this\nfile, will be automatically\nbacked up and restored.\n\nCustom changes (game names\nor custom 'joy' parameter\nentries) will be set to the\nupdated default.\n\nDo you want to update?\n\n" 0 0
+  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame definition file\n'_games.template'\n\nCurrent version: $current_template_version\nUpdate version:  $UPDATE_VERSION\n\nFavourites and existing 'joy'\nparameter entries in this\nfile will be automatically\nbacked up and restored.\n\nDo you want to update?\n\n" 0 0
   response=$?
   if [ "$response" = "0" ]; then
     # Download _games.template
@@ -307,32 +307,15 @@ if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
       favcount=$( grep -E "(1ONE|1TWO|1TRE|0ALL|1FAV)" $TEMPLATEFILE | grep -v "_DUMMY" | wc -l )
       mkdir -p $RPI2JAMMA/backup/rpi2jamma/roms_advmame      
       cp  $TEMPLATEFILE $RPI2JAMMA/backup/rpi2jamma/roms_advmame/
-  
-      # Backup favourites         
-      counter=0
-      (
-      # Set while loop until 100 %, simulation copy progress 
-      while :
-      do
-cat <<EOF
-XXX
-$counter
-\nBackup count:\n\n$favcount game definitions
-XXX
-EOF
-      (( counter+=10 ))
-      [ $counter -gt 100 ] && break
-      sleep 0.05
-      done
-      ) |
-      dialog --title "pinHP Arcade Classics" --gauge "Please wait" 10 26
-      setterm -cursor off
-      sleep 1
-      # Backup end
       
       # Remove mario and pacman from default favourites
       sed -i 's/-0ONE-0TWO-0TRE-1ALL-1FAV/-0ONE-0TWO-0TRE-1ALL-0FAV/' /tmp/template_update
-      cp /tmp/template_update $TEMPLATEFILE
+
+      # Update new template with joy params from backup
+      rm /tmp/template_update_joy &> /dev/null
+      touch /tmp/template_update_joy
+      awk -v BACKUPFILE="$RPI2JAMMA/backup/rpi2jamma/roms_advmame/_games.template" -v TEMPLATEFILE="/tmp/template_update" -v OUTFILE="/tmp/template_update_joy" -f "/root/scripts/joy_restore.awk"
+      cp /tmp/template_update_joy $TEMPLATEFILE
 
       # Restore favourites
       FAVGAMES="/tmp/favgames.template"
@@ -369,6 +352,7 @@ EOF
         sleep 1
       fi
       rm $FAVGAMES &> /dev/null
+      rm /tmp/template_update_joy &> /dev/null
   
     fi
     UPDATED="Y"
