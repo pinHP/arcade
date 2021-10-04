@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# version=01OCT21
+# version=04OCT21
 
 MAMECONFIG=$1
 HARDWAREMODE_CURRENT=$2
@@ -100,6 +100,11 @@ pikeyd165_start "yesno" "0.5"
 ADVMAME_RC_PI2JAMMA=$(grep "advmame_rc_pi2jamma" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2jamma=' '{print $2}' )
 ADVMAME_RC_PI2SCART=$(grep "advmame_rc_pi2scart" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2scart=' '{print $2}' )
 TEMPLATE_UPDATE=$(grep "templatefile" "/tmp/patch_server.txt" | awk -F 'templatefile=' '{print $2}' )
+if grep -q "^# mameconfig=." $MAMECONFIG; then
+  MAME_INSERT_AFTER="^# mameconfig=."
+else
+  MAME_INSERT_AFTER="DO NOT EDIT THIS LINE"
+fi     
 
 case $HARDWAREMODE_CURRENT in
   Jamma )
@@ -229,7 +234,37 @@ if [ ! -z "$missing_info" ]; then
   fi
 joy2key_stop
 fi
-  
+ 
+### Insert missing P2 Button 5/6 definitions
+missing_code=""
+missing_info=""
+rm /tmp/missing_code &> /dev/null
+
+if ! grep -q "input_map\[p2_button5\]" $MAMECONFIG || ! grep -q "input_map\[p2_button6\]" $MAMECONFIG; then
+  joy2key_start "yesno"
+  dialog --timeout 15 --title "pinHP Arcade Classics" --defaultno --yesno "\nAdd missing player 2\n\nbuttons 5/6 definitions?\n\n" 0 0
+  response=$?
+  if [ "$response" = "0" ]; then
+    rm /tmp/insert_code &> /dev/null
+    touch /tmp/insert_code
+    echo -e "\n# Added by online update" > /tmp/insert_code
+    echo "#" >> /tmp/insert_code
+    if ! grep -q "input_map\[p2_button5\]" $MAMECONFIG; then
+      echo "input_map[p2_button5] keyboard[0,k]" >> /tmp/insert_code
+    fi
+    if ! grep -q "input_map\[p2_button6\]" $MAMECONFIG; then
+      echo "input_map[p2_button6] keyboard[0,i]" >> /tmp/insert_code
+    fi
+    echo "#" >> /tmp/insert_code
+    sed -i -e '/'"$MAME_INSERT_AFTER"'/r /tmp/insert_code' $MAMECONFIG
+    UPDATED="Y"
+    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\nPlayer 2 buttons 5/6\n\nDone!\n\n" 0 0
+  else
+    NOCHANGES="Y"
+  fi
+joy2key_stop
+fi
+
 ### Update mouse/spinner support
 missing_code=""
 missing_info=""
