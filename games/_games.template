@@ -1,6 +1,6 @@
 # pinHP Arcade Image
 # Game definition file
-# version=27SEP21
+# version=20OCT21
 
 #
 #   USER EDITABLE:
@@ -5311,7 +5311,6 @@ game { rom ="tactcian" title ="Tactician (set 1)" params ="-0ONE-0TWO-0TRE-1ALL-
 game { rom ="tagteam" title ="Tag Team Wrestling" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="tail2nos" title ="Tail to Nose - Great Championship" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="tailg" title ="Tailgunner" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
-game { rom ="taitogn" title ="Taito GNET" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="taiwanmb" title ="Taiwan Mahjong [BET] (Japan 881208)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="talbot" title ="Talbot" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="tangtang" title ="Tang Tang (ver. 0526, 26/05/2000)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
