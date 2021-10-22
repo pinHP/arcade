@@ -311,7 +311,7 @@ joy2key_stop
 fi
 
 ### Update _games.template
-UPDATE_VERSION="27SEP21"
+UPDATE_VERSION="20OCT21"
 
 current_template_version=$( grep "version=" $TEMPLATEFILE | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
 if [ -z "$current_template_version" ]; then
