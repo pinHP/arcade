@@ -340,8 +340,8 @@ if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
   
       clear
       favcount=$( grep -E "(1ONE|1TWO|1TRE|0ALL|1FAV)" $TEMPLATEFILE | grep -v "_DUMMY" | wc -l )
-      mkdir -p $RPI2JAMMA/backup/rpi2jamma/roms_advmame      
-      cp  $TEMPLATEFILE $RPI2JAMMA/backup/rpi2jamma/roms_advmame/
+      mkdir -p /tmp/backup  
+      cp $TEMPLATEFILE /tmp/backup/
       
       # Remove mario and pacman from default favourites
       sed -i 's/-0ONE-0TWO-0TRE-1ALL-1FAV/-0ONE-0TWO-0TRE-1ALL-0FAV/' /tmp/template_update
@@ -349,13 +349,15 @@ if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
       # Update new template with joy params from backup
       rm /tmp/template_update_joy &> /dev/null
       touch /tmp/template_update_joy
-      awk -v BACKUPFILE="$RPI2JAMMA/backup/rpi2jamma/roms_advmame/_games.template" -v TEMPLATEFILE="/tmp/template_update" -v OUTFILE="/tmp/template_update_joy" -f "/root/scripts/joy_restore.awk"
+      cat $TEMPLATEFILE | grep "joy \?=" > /tmp/template_backup_joy
+      sed -i 's/^ *//g' /tmp/template_backup_joy
+      awk -v BACKUPFILE="/tmp/template_backup_joy" -v TEMPLATEFILE="/tmp/template_update" -v OUTFILE="/tmp/template_update_joy" -f "/root/scripts/joy_restore.awk"
       cp /tmp/template_update_joy $TEMPLATEFILE
 
       # Restore favourites
       FAVGAMES="/tmp/favgames.template"
-      if [ -e "$RPI2JAMMA/backup/rpi2jamma/roms_advmame/_games.template" ]; then
-        grep -E "(1ONE|1TWO|1TRE|0ALL|1FAV)" "$RPI2JAMMA/backup/rpi2jamma/roms_advmame/_games.template" | grep -v "_DUMMY" > "$FAVGAMES"
+      if [ -e "/tmp/backup/_games.template" ]; then
+        grep -E "(1ONE|1TWO|1TRE|0ALL|1FAV)" "/tmp/backup/_games.template" | grep -v "_DUMMY" > "$FAVGAMES"
         favlines=$(cat "$FAVGAMES" | wc -l)
       fi
   
