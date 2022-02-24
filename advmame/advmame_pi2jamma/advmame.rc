@@ -94,6 +94,7 @@ device_video_modeline "240x192 (61.16 Hz)"   6.4   240 303 402 412   192 216 231
 device_video_modeline "320x224 (60.02 Hz)"   6.4   320 345 376 407   224 237 244 262  -hsync -vsync # 15.72 kHz
 device_video_modeline "320x224 (60.71 Hz)"   6.4   320 345 376 407   224 237 241 259  -hsync -vsync # 15.72 kHz
 device_video_modeline "320x240 (57.04 Hz)"   6.4   320 344 376 408   240 251 266 275  -hsync -vsync # 15.69 kHz
+device_video_modeline "320x240 (57.60 Hz)"   6.4   320 344 375 407   240 251 264 273  -hsync -vsync # 15.72 kHz
 device_video_modeline "320x240 (60.10 Hz)"   6.4   320 352 399 416   240 242 248 256  -hsync -vsync # 15.38 kHz
 #device_video_modeline "320x256 (55.16 Hz)"   6.4   320 336 366 400   256 263 266 283  -hsync -vsync # 15.61 kHz
 device_video_modeline "496x240 (60.27 Hz)"   9.6   496 520 560 608   240 245 248 262  -hsync -vsync # 15.79 kHz
