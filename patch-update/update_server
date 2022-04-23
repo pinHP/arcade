@@ -5,3 +5,4 @@ update_patch_file=https://github.com/pinHP/arcade/raw/main/patch-update/patch_cu
 advmame_rc_pi2jamma=https://github.com/pinHP/arcade/raw/main/advmame/advmame_pi2jamma/advmame.rc
 advmame_rc_pi2scart=https://github.com/pinHP/arcade/raw/main/advmame/advmame_pi2scart/advmame.rc
 update_script=https://github.com/pinHP/arcade/raw/main/patchfiles/update_script.txt
+templatefile=https://github.com/pinHP/arcade/raw/main/games/_games.template
