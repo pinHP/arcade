@@ -1,8 +1,8 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20220127
-patch_date=27JAN22
+patch_version=20220422
+patch_date=22APR22
 patch_minversion=20210325
-patch_update_info=\n*** 27JAN22 patch update ***\n\n+ Support for AdvanceMENU\n  user interface and\n  AdvanceMESS emulator.\n\nFor details see:\npi2jamma.info/pinhp-changelog\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
+patch_update_info=\n*** 22APR22 patch update ***\n\n+ Added 'Group by Orientation'\n+ Added auto monitor rotate\n  support for Quadro cabinets\n\nFor details see:\npi2jamma.info/pinhp-changelog\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
 patch_general_info=
 patch_disabled=
