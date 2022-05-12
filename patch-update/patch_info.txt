@@ -1,6 +1,6 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20220510
+patch_version=20220507
 patch_date=07MAY22
 patch_minversion=20210325
 patch_update_info=\n*** 07MAY22 patch update ***\n\n+ Added 'Delete game' option\n  (P2-Start button behaviour)\n\nFor details see:\npi2jamma.info/pinhp-changelog\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
