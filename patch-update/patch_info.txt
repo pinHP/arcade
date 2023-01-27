@@ -1,8 +1,8 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20220915
-patch_date=15SEP22
+patch_version=20230127
+patch_date=27JAN23
 patch_minversion=20210325
-patch_update_info=\n*** 15SEP22 patch update ***\n\n+ Updated website info:\n  www.pinhp-image.com\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
+patch_update_info=\n*** 27JAN23 patch update ***\n\n+ Clone joysticks and buttons\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
 patch_general_info=
 patch_disabled=
