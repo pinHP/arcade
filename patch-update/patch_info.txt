@@ -1,8 +1,8 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20230127
-patch_date=27JAN23
+patch_version=20230219
+patch_date=19FEB23
 patch_minversion=20210325
-patch_update_info=\n*** 27JAN23 patch update ***\n\n+ Clone joysticks and buttons\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
+patch_update_info=\n*** 19FEB23 patch update ***\n\n+ Improved custom scripts\n+ See GPIO switching examples:\n  /root/scripts/custom\n\nATTN - Quadro users: Set GPIO\npin for auto monitor rotation\nin rpi2jamma/config.ini\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
 patch_general_info=
 patch_disabled=
