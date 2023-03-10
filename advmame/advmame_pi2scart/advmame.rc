@@ -34,7 +34,7 @@ input_map[ui_load_state] keyboard[0,1] keyboard[0,right]
 input_steadykey no
 input_idleexit 300
  
-dir_rom /root/.advance/rom
+dir_rom /mnt/data/rpi2jamma/bios_advmame:/mnt/usb/rpi2jamma/bios_advmame:/root/.advance/rom
 dir_sample /mnt/data/rpi2jamma/samples_advmame:/mnt/usb/rpi2jamma/samples_advmame
 dir_artwork /mnt/data/rpi2jamma/artwork_advmame:/mnt/usb/rpi2jamma/artwork_advmame
 dir_snap /root/.advance/snap
@@ -95,6 +95,7 @@ device_video_modeline "320x224 (60.02 Hz)"   6.4   320 331 362 407   224 229 236
 device_video_modeline "320x224 (60.71 Hz)"   6.4   320 311 362 407   224 229 233 259  -hsync -vsync # 15.72 kHz
 device_video_modeline "320x240 (57.04 Hz)"   6.4   320 330 362 408   240 243 258 275  -hsync -vsync # 15.69 kHz
 device_video_modeline "320x240 (57.60 Hz)"   6.4   320 330 361 407   240 243 256 273  -hsync -vsync # 15.72 kHz
+device_video_modeline "320x240 (60.02 Hz)"   6.4   320 329 367 407   240 240 252 262  -hsync -vsync # 15.72 kHz
 device_video_modeline "320x240 (60.10 Hz)"   6.4   320 338 385 416   240 240 246 256  -hsync -vsync # 15.38 kHz
 #device_video_modeline "320x256 (55.16 Hz)"   6.4   320 330 350 400   256 256 259 283  -hsync -vsync # 15.61 kHz
 device_video_modeline "496x240 (60.27 Hz)"   9.6   496 406 546 608   240 240 243 262  -hsync -vsync # 15.79 kHz
@@ -104,7 +105,8 @@ device_video_modeline "506x263 (55.22 Hz)"   9.6   506 516 558 610   263 267 277
 device_video_modeline "512x244 (60.02 Hz)"   9.6   512 529 561 620   244 244 249 258  -hsync -vsync # 15.48 kHz
 
 device_video_modeline "1520x224 (59.18 Hz)"   31.96   1520 1611 1781 2038   224 231 237 265  -hsync -vsync # 15.68 kHz
-device_video_modeline "1536x256 (54.99 Hz)"   32.85   1536 1650 1810 2096   256 259 261 285  -hsync -vsync # 15.67 kHz
+device_video_modeline "1536x256 (55.00 Hz)"   32.84   1536 1650 1809 2095   256 259 261 285  -hsync -vsync # 15.68 kHz
+device_video_modeline "1600x224 (59.00 Hz)"   33.46   1600 1691 1867 2124   224 233 239 267  -hsync -vsync # 15.75 kHz
 device_video_modeline "1600x224 (60.00 Hz)"   31.99   1600 1650 1800 2035   224 228 236 262  -hsync -vsync # 15.72 kHz
 device_video_modeline "1600x232 (58.97 Hz)"   32.04   1600 1650 1800 2035   232 243 246 267  -hsync -vsync # 15.74 kHz
 device_video_modeline "1600x240 (53.98 Hz)"   34.34   1600 1770 2050 2240   240 246 257 284  -hsync -vsync # 15.33 kHz
@@ -116,8 +118,8 @@ device_video_modeline "1600x254 (53.20 Hz)"   34.915  1600 1680 1976 2240   254 
 device_video_modeline "1664x224 (54.00 Hz)"   33.50   1664 1754 1904 2154   224 242 256 288  -hsync -vsync # 15.55 kHz
 device_video_modeline "1920x224 (55.08 Hz)"   40.80   1920 2040 2287 2599   224 240 251 285  -hsync -vsync # 15.70 kHz
 device_video_modeline "1920x224 (60.00 Hz)"      41   1920 2036 2292 2608   224 228 235 262  -hsync -vsync # 15.72 kHz
-device_video_modeline "1920x240 (57.00 Hz)"   40.74   1920 2048 2295 2599   240 243 250 275  -hsync -vsync # 15.68 kHz
-device_video_modeline "1920x240 (57.50 Hz)"   40.20   1920 3048 2295 2599   240 243 243 269  -hsync -vsync # 15.47 kHz
+device_video_modeline "1920x240 (57.00 Hz)"   40.74   1920 2058 2305 2599   240 251 258 275  -hsync -vsync # 15.68 kHz
+device_video_modeline "1920x240 (57.50 Hz)"   40.20   1920 2058 2305 2599   240 251 252 269  -hsync -vsync # 15.47 kHz
 device_video_modeline "1920x240 (60.00 Hz)"   41.50   1920 2060 2348 2640   240 240 247 262  -hsync -vsync # 15.72 kHz
 device_video_modeline "1920x240 (60.61 Hz)"   40.64   1920 2043 2290 2599   240 240 244 258  -hsync -vsync # 15.64 kHz
 device_video_modeline "1920x248 (57.00 Hz)"   41.05   1920 2036 2228 2600   248 248 253 277  -hsync -vsync # 15.79 kHz
@@ -146,6 +148,7 @@ device_video_modeline "1920x260 (57.41 Hz)"   38.71   1920 1986 2236 2470   260 
 224x232x60/display_mode 320x224 (60.02 Hz)
 224x232x60/display_resize integer
 224x256x60/display_mode 320x224 (60.71 Hz)
+224x256x60/display_resize integer
 224x256x61/display_mode 320x224 (60.02 Hz)
 224x256x61/display_resize integer
 224x272x60/display_mode 1600x224 (60.00 Hz)
@@ -297,7 +300,7 @@ device_video_modeline "1920x260 (57.41 Hz)"   38.71   1920 1986 2236 2470   260 
 256x304x60/display_resize integer
 256x352x60/display_mode 1600x240 (60.00 Hz)
 256x352x60/display_resize fractional
-256x384x55/display_mode 1920x256 (56.69 Hz)
+256x384x55/display_mode 1536x256 (55.00 Hz)
 256x384x55/display_resize integer
 256x448x60/display_mode 512x244 (60.02 Hz)
 256x448x60/display_resize fractional
@@ -432,7 +435,7 @@ device_video_modeline "1920x260 (57.41 Hz)"   38.71   1920 1986 2236 2470   260 
 384x248x55/display_resize integer
 384x255x60/display_mode 1600x240 (60.00 Hz)
 384x255x60/display_resize fractional
-384x256x55/display_mode 1920x260 (57.41 Hz)
+384x256x55/display_mode 1536x256 (55.00 Hz)
 384x256x55/display_resize integer
 384x256x60/display_mode 1600x240 (60.00 Hz)
 384x256x60/display_resize integer
