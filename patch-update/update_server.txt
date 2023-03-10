@@ -1,0 +1,9 @@
+#pinhp_image=pinHP Arcade Classics
+
+update_info_file=https://drive.google.com/uc?export=download&id=1KstqTxcXVS24KSXLmAUjqSjxd5g41Iex
+update_patch_file=https://drive.google.com/uc?export=download&id=1oJ06v8_v5O04Zhkt3SpxKku2---pJesg
+advmame_rc_pi2jamma=https://drive.google.com/uc?export=download&id=1_vD_BntmfZjPMZULvvrthQLC-uxuujBt
+advmame_rc_pi2scart=https://drive.google.com/uc?export=download&id=1V274X_52FVxUvNrpEkfLu5ET5xsUrrVu
+update_script=https://drive.google.com/uc?export=download&id=1-u9AVaU1K-xAQMv3t7Zg6XQecPRTGR3S
+templatefile=https://drive.google.com/uc?export=download&id=1KRgN0hGJq4nB2xvs8JpryLIbPOSkdREh
+filterfile=https://drive.google.com/uc?export=download&id=1DmiUakl8MX4zQvQujjvTNo0f9UKxoJIj
