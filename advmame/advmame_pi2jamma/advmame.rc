@@ -119,6 +119,7 @@ device_video_modeline "1600x254 (53.20 Hz)"   34.915  1600 1750 2046 2240   254 
 device_video_modeline "1664x224 (54.00 Hz)"   33.50   1664 1828 1978 2154   224 250 264 288  -hsync -vsync # 15.55 kHz
 device_video_modeline "1920x224 (55.08 Hz)"   40.80   1920 2134 2381 2599   224 248 259 285  -hsync -vsync # 15.70 kHz
 device_video_modeline "1920x224 (60.00 Hz)"      41   1920 2130 2386 2608   224 236 243 262  -hsync -vsync # 15.72 kHz
+device_video_modeline "1920x224 (60.60 Hz)"      41   1920 2130 2380 2602   224 236 241 260  -hsync -vsync # 15.76 kHz
 device_video_modeline "1920x240 (57.00 Hz)"   40.74   1920 2142 2389 2599   240 251 258 275  -hsync -vsync # 15.68 kHz
 device_video_modeline "1920x240 (57.50 Hz)"   40.20   1920 2142 2389 2599   240 251 252 269  -hsync -vsync # 15.47 kHz
 device_video_modeline "1920x240 (60.00 Hz)"   41.50   1920 2154 2442 2640   240 245 252 262  -hsync -vsync # 15.72 kHz
@@ -148,7 +149,7 @@ device_video_modeline "1920x260 (57.41 Hz)"   38.71   1920 2080 2330 2470   260 
 224x224x60/display_mode 320x224 (60.02 Hz)
 224x232x60/display_mode 320x224 (60.02 Hz)
 224x232x60/display_resize integer
-224x256x60/display_mode 320x224 (60.02 Hz)
+224x256x60/display_mode 1920x224 (60.00 Hz)
 224x256x60/display_resize integer
 224x256x61/display_mode 320x224 (60.71 Hz)
 224x256x61/display_resize integer
@@ -265,7 +266,7 @@ device_video_modeline "1920x260 (57.41 Hz)"   38.71   1920 2080 2330 2470   260 
 256x224x57/display_resize integer
 256x224x59/display_mode 1600x224 (59.00 Hz)
 256x224x59/display_resize integer
-256x224x60/display_mode 1600x224 (60.00 Hz)
+256x224x60/display_mode 1920x224 (60.00 Hz)
 256x224x60/display_resize integer
 256x230x60/display_mode 1920x240 (60.00 Hz)
 256x230x60/display_resize integer
