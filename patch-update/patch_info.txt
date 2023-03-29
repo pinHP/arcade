@@ -1,8 +1,8 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20230316
-patch_date=16MAR23
+patch_version=20230329
+patch_date=29MAR23
 patch_minversion=20210325
-patch_update_info=\n*** 16AMAR23 patch update ***\n\n+ Auto Insert Coin (Free Play)\n+ Boot into Game List\n+ Dial Control Game Filter\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
+patch_update_info=\n*** 29AMAR23 patch update ***\n\n- Annoyance fix: "Back" button\n  works in pinHP system menus\n+ now as well (Pi2Jamma only)\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
 patch_general_info=
 patch_disabled=
