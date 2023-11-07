@@ -1,6 +1,6 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20231105
+patch_version=20231107
 patch_date=05NOV23
 patch_minversion=20210325
 patch_update_info=\n*** 05NOV23 patch update ***\n\n+ Shutdown countdown dialog\n  can be deactivated\n- Minor bugfixes\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
