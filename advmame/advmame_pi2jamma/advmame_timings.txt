@@ -1,5 +1,5 @@
 device_video_clock 4 - 50 / 15-16 / 50-70
-advmame_timings_version="25JAN24 (Jamma)"
+# advmame_timings_version=25JAN24 (Jamma)
 
 device_video_modeline "240x192 (61.16 Hz)"   6.4   240 303 402 412   192 216 231 254  -hsync -vsync # 15.53 kHz
 device_video_modeline "240x224 (60.00 Hz)"     9.6   240 402 470 625   224 237 241 256  -hsync -vsync # 15.36 kHz
