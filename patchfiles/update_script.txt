@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# version=04OCT21
+# version=26JAN24
 
 MAMECONFIG=$1
 HARDWAREMODE_CURRENT=$2
@@ -9,56 +9,9 @@ RPI2JAMMA=$4
 CONNECTION_TIMEOUT=30
 UPDATED="N"
 NOCHANGES="N"
-
-pikeyd165_start ()
-{
-  if [ $1 != "$pikeyd_current" ] && [ "$HARDWAREMODE_CURRENT" = "Jamma" ]; then
-    pikeyd165_stop
-    pikeyd_current=$1
-    if [ ! -f "/etc/pikeyd165.conf" ]; then
-      cp /root/pikeyd165_default.conf /tmp/pikeyd165.conf
-      ln -sf /tmp/pikeyd165.conf /etc/pikeyd165.conf
-    fi
-
-    case $1 in
-      anykey )
-        cp /root/pikeyd165_anykey.conf /tmp/pikeyd165.conf
-      ;;
-      default )
-        cp /root/pikeyd165_default.conf /tmp/pikeyd165.conf
-      ;;
-      enterkey )
-        cp /root/pikeyd165_enterkey.conf /tmp/pikeyd165.conf
-      ;; 
-      updown )
-        cp /root/pikeyd165_updown.conf /tmp/pikeyd165.conf
-      ;;  
-      updowntabenter )
-        cp /root/pikeyd165_updowntabenter.conf /tmp/pikeyd165.conf
-      ;;
-      yesno )
-        cp /root/pikeyd165_yesno.conf /tmp/pikeyd165.conf
-      ;;
-      spacequit )
-        cp /root/pikeyd165_spacequit.conf /tmp/pikeyd165.conf
-      ;;
-      * )
-        cp /root/pikeyd165_default.conf /tmp/pikeyd165.conf
-      ;;
-    esac
-
-    /usr/bin/taskset -c 2 /root/pikeyd165 -ndb -d &> /dev/null
-    if [ ! -z $2 ]; then
-      sleep $2
-    fi
-  fi
-}
-
-pikeyd165_stop ()
-{
-    /root/pikeyd165 -k &> /dev/null
-    killall pikeyd165 &> /dev/null
-}
+FILTERFILE=$( cat "/tmp/pinhp_variables" | grep "FILTERFILE=" | awk -F'"' '{print $2}')
+clone_joysticks=$( cat "/tmp/pinhp_variables" | grep "clone_joysticks=" | awk -F'"' '{print $2}')
+clone_buttons=$( cat "/tmp/pinhp_variables" | grep "clone_buttons=" | awk -F'"' '{print $2}')
 
 joy2key_start ()
 {
@@ -95,11 +48,10 @@ joy2key_stop ()
   pkill joy2key &> /dev/null
 }
 
-pikeyd165_start "yesno" "0.5"
-
 ADVMAME_RC_PI2JAMMA=$(grep "advmame_rc_pi2jamma" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2jamma=' '{print $2}' )
 ADVMAME_RC_PI2SCART=$(grep "advmame_rc_pi2scart" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2scart=' '{print $2}' )
 TEMPLATE_UPDATE=$(grep "templatefile" "/tmp/patch_server.txt" | awk -F 'templatefile=' '{print $2}' )
+DATABASE_UPDATE=$(grep "filterfile" "/tmp/patch_server.txt" | awk -F 'filterfile=' '{print $2}' )
 if grep -q "^# mameconfig=." $MAMECONFIG; then
   MAME_INSERT_AFTER="^# mameconfig=."
 else
@@ -128,6 +80,18 @@ if ! [ -e /tmp/advmame_rc_update ]; then
     fi
     joy2key_stop
   fi
+fi
+
+### Mandatory update ###
+
+# Pi2SCART
+if [ "$HARDWAREMODE_CURRENT" = "SCART" ]; then
+  modeline_error='device_video_modeline "1920x240 (57.00 Hz)"   40.74   1920 2048 2295 2599   240 243 250 275  -hsync -vsync # 15.68 kHz'
+  modeline_correct='device_video_modeline "1920x240 (57.00 Hz)"   40.74   1920 2058 2305 2599   240 251 258 275  -hsync -vsync # 15.68 kHz'
+  sed -i 's/'"$modeline_error"'/'"$modeline_correct"'/g' $MAMECONFIG
+  modeline_error='device_video_modeline "1920x240 (57.50 Hz)"   40.20   1920 3048 2295 2599   240 243 243 269  -hsync -vsync # 15.47 kHz'
+  modeline_correct='device_video_modeline "1920x240 (57.50 Hz)"   40.20   1920 2058 2305 2599   240 251 252 269  -hsync -vsync # 15.47 kHz'
+  sed -i 's/'"$modeline_error"'/'"$modeline_correct"'/g' $MAMECONFIG
 fi
 
 ### Modelines update
@@ -182,6 +146,34 @@ if [ -e /tmp/advmame_rc_update ]; then
         if [ $count_missing -eq $copycount ]; then
           dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\nSuccess!\n\n$copycount lines added\n\n" 0 0
           UPDATED="Y"
+          # Save new 1536x256 (55.00 Hz) modeline for R-Type games
+          if grep -q "1536x256 (55.00 Hz)" "/tmp/timings_missing"; then 
+            dialog --timeout 15 --title "pinHP Arcade Classics" --yesno "\nModeline 1536x256 (55.00 Hz):\n\nApply new optimized modeline\nto R-Type games?\n\n" 0 0
+            response=$?
+            if [ "$response" = "0" ]; then
+              rtype_new='256x384x55/display_mode 1536x256 (55.00 Hz)'
+              sed -i 's:256x384x55/display_mode.*:'"$rtype_new"':g' $MAMECONFIG
+              rtype_new='384x256x55/display_mode 1536x256 (55.00 Hz)'
+              sed -i 's:384x256x55/display_mode.*:'"$rtype_new"':g' $MAMECONFIG
+              clear
+              dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n1536x256 (55.00 Hz):\n\nDone!\n\n" 0 0
+            else
+              dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n1536x256 (55.00 Hz):\n\nNo changes applied.\n\n" 0 0
+            fi
+          fi
+          # Save new 1600x224 (59.00 Hz) modeline for e.g. Bubble Bobble
+          if grep -q "1600x224 (59.00 Hz)" "/tmp/timings_missing"; then 
+            dialog --timeout 15 --title "pinHP Arcade Classics" --yesno "\nModeline 1600x224 (59.00 Hz):\n\nApply new optimized modeline\nto games (e.g. Bubble Bobble)?\n\n" 0 0
+            response=$?
+            if [ "$response" = "0" ]; then
+              bublbobl_new='/display_mode 1600x224 (59.00 Hz)'
+              sed -i 's:/display_mode 1520x224 (59.18 Hz):'"$bublbobl_new"':g' $MAMECONFIG
+              clear
+              dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n1600x224 (59.00 Hz):\n\nDone!\n\n" 0 0
+            else
+              dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n1600x224 (59.00 Hz):\n\nNo changes applied.\n\n" 0 0
+            fi
+          fi
         else
           dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\n$copycount/$count_missing lines added\n\n" 0 0
         fi
@@ -398,6 +390,43 @@ EOF
     NOCHANGES="Y"
   fi
 joy2key_stop
+fi
+
+### Update _database.csv
+UPDATE_VERSION="20230310"
+
+current_database_version=$( grep "version=" $FILTERFILE | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
+if [ -z "$current_template_version" ]; then
+  current_database_version="unknown"
+fi
+
+if [ "$current_database_version" != "$UPDATE_VERSION" ]; then
+  joy2key_start "yesno"
+  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame filter file\n'_database.csv'\n\nCurrent version: $current_database_version\nUpdate version:  $UPDATE_VERSION\n\nDo you want to update and\noverwrite existing version?\n\n" 0 0
+  response=$?
+  if [ "$response" = "0" ]; then
+    # Download _database.csv
+    clear
+    if ! [ -e /tmp/database_update ]; then
+      curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/database_update "$DATABASE_UPDATE"
+      response=$?
+      if [ "$response" = "28" ] || [ ! -e "/tmp/database_update" ]; then
+        if [ "$response" = "28" ]; then
+          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
+        else
+          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\n_database.csv\n\n" 0 0
+        fi
+      fi
+    fi
+    if [ -e /tmp/database_update ]; then
+      cp /tmp/database_update $FILTERFILE      
+    fi
+    UPDATED="Y"
+    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\n_database.csv\n\nDone!\n\n" 0 0
+  else
+    NOCHANGES="Y"  
+  fi
+  joy2key_stop
 fi
 
 rm /tmp/insert_code &> /dev/null
