@@ -502,4 +502,3 @@ device_video_modeline "1920x260 (57.41 Hz)"   38.71   1920 2080 2330 2470   260 
 1024x1024x60/display_resize integer
 1344x240x60/display_mode 1600x240 (60.00 Hz)
 1344x240x60/display_resize integer
-
