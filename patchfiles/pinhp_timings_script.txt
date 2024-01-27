@@ -62,7 +62,7 @@ PINHP_TIMINGS_VERSION="25JAN24 ($HARDWAREMODE_CURRENT)"
 
 current_timings_version=$( grep "pinhp_timings_version=" $MAMECONFIG | awk -F '=' '{print $2}' )
 if [ -z "$current_timings_version" ]; then
-  current_timings_version="not available"
+  current_timings_version="n/a"
 fi
 
 joy2key_start "yesno"
