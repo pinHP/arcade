@@ -1,5 +1,5 @@
 device_video_clock 4 - 50 / 15-16 / 50-70
-# advmame_timings_version=25JAN24 (SCART)
+# pinhp_timings_version=25JAN24 (SCART)
 
 device_video_modeline "240x192 (61.16 Hz)"   6.4   240 289 388 412   192 208 223 254  -hsync -vsync # 15.53 kHz
 device_video_modeline "240x224 (60.00 Hz)"     9.6   240 388 456 625   224 229 233 256  -hsync -vsync # 15.36 kHz
