@@ -66,7 +66,7 @@ if [ -z "$current_timings_version" ]; then
 fi
 
 joy2key_start "yesno"
-dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nUPDATE GAME RESOLUTION SETTINGS\n\nCurrent version: $current_timings_version\nUpdate version:  $PINHP_TIMINGS_VERSION\n\nDo you want to update and\n*REPLACE* existing settings\nwith optimized offical values?\n\n" 0 0
+dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGAME RESOLUTION SETTINGS\n\nCurrent version: $current_timings_version\nUpdate version:  $PINHP_TIMINGS_VERSION\n\nDo you want to update\nand *REPLACE* existing\nsettings with optimized\nofficial values?\n\n" 17 29
 response=$?
 if [ "$response" = "0" ]; then
   # Download advmame timings
