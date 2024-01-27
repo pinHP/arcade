@@ -184,12 +184,14 @@ if [ "$response" = "0" ]; then
       echo "vanvan/display_resize integer" >> /tmp/pinhp_timings_insert
     fi
 
-    if ! grep -q "qbert.input_map" "$MAMECONFIG"; then
-      echo "qbert/input_map[p1_right] keyboard[0,right] keyboard[0,down]" >> /tmp/pinhp_timings_insert
-      echo "qbert/input_map[p1_left] keyboard[0,left] keyboard[0,up]" >> /tmp/pinhp_timings_insert
-      echo "qbert/input_map[p1_up] keyboard[0,right] keyboard[0,up]" >> /tmp/pinhp_timings_insert
-      echo "qbert/input_map[p1_down] keyboard[0,left] keyboard[0,down]" >> /tmp/pinhp_timings_insert
-      echo "qbert/input_map[start1] keyboard[0,1] or keyboard[0,lcontrol]" >> /tmp/pinhp_timings_insert
+    if [ "$HARDWAREMODE_CURRENT" = "Jamma" ]; then
+      if ! grep -q "qbert.input_map" "$MAMECONFIG"; then
+        echo "qbert/input_map[p1_right] keyboard[0,right] keyboard[0,down]" >> /tmp/pinhp_timings_insert
+        echo "qbert/input_map[p1_left] keyboard[0,left] keyboard[0,up]" >> /tmp/pinhp_timings_insert
+        echo "qbert/input_map[p1_up] keyboard[0,right] keyboard[0,up]" >> /tmp/pinhp_timings_insert
+        echo "qbert/input_map[p1_down] keyboard[0,left] keyboard[0,down]" >> /tmp/pinhp_timings_insert
+        echo "qbert/input_map[start1] keyboard[0,1] or keyboard[0,lcontrol]" >> /tmp/pinhp_timings_insert
+      fi
     fi
 
     echo "" >> /tmp/pinhp_timings_insert
