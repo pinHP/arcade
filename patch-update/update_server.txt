@@ -4,8 +4,8 @@ update_info_file=https://drive.google.com/uc?export=download&id=1KstqTxcXVS24KSX
 update_patch_file=https://drive.google.com/uc?export=download&id=1oJ06v8_v5O04Zhkt3SpxKku2---pJesg
 advmame_rc_pi2jamma=https://drive.google.com/uc?export=download&id=1QsR1WGr7KMDTr0u7yw1h_-fPAeeZG6Cf
 advmame_rc_pi2scart=https://drive.google.com/uc?export=download&id=1rbrAqU8Jxx85FTZv6O9zoX3qw93ovw4M
-advmame_timings_jamma=https://drive.google.com/uc?export=download&id=16psWiRcLBqalcNVJPquaF-tqriLpgz8o
-advmame_timings_scart=https://drive.google.com/uc?export=download&id=1tk1Jil5-clGUDFwxNZ7s92E8HOMReEFg
+pinhp_timings_jamma=https://drive.google.com/uc?export=download&id=16psWiRcLBqalcNVJPquaF-tqriLpgz8o
+pinhp_timings_scart=https://drive.google.com/uc?export=download&id=1tk1Jil5-clGUDFwxNZ7s92E8HOMReEFg
 update_script=https://drive.google.com/uc?export=download&id=1-u9AVaU1K-xAQMv3t7Zg6XQecPRTGR3S
 templatefile=https://drive.google.com/uc?export=download&id=1KRgN0hGJq4nB2xvs8JpryLIbPOSkdREh
 filterfile=https://drive.google.com/uc?export=download&id=1DmiUakl8MX4zQvQujjvTNo0f9UKxoJIj
