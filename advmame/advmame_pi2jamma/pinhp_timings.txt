@@ -55,7 +55,7 @@ device_video_modeline "1920x256 (53.20 Hz)"   40.94   1920 2104 2430 2600   256 
 device_video_modeline "1920x256 (56.00 Hz)"   37.90   1920 2034 2226 2400   256 261 266 282  -hsync -vsync # 15.79 kHz
 device_video_modeline "1920x256 (56.69 Hz)"   38.79   1920 2070 2320 2470   256 260 264 277  -hsync -vsync # 15.70 kHz
 device_video_modeline "1920x256 (57.55 Hz)"   37.18   1920 2072 2206 2358   256 259 263 274  -hsync -vsync # 15.77 kHz 
-device_video_modeline "1920x256 (60.00 Hz)"   34.90   1920 2020 2120 2220    256 256 258 262  -hsync -vsync # 15.72 kHz
+device_video_modeline "1920x256 (60.00 Hz)"   34.90   1920 2020 2120 2220   256 256 258 262  -hsync -vsync # 15.72 kHz
 device_video_modeline "1920x260 (57.41 Hz)"   38.71   1920 2080 2330 2470   260 260 265 273  -hsync -vsync # 15.67 kHz
 
 160x200x60/display_mode 320x240 (60.10 Hz)
