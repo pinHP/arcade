@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# version=27JAN24
+# version=28JAN24
 
 MAMECONFIG=$1
 HARDWAREMODE_CURRENT=$2
@@ -101,54 +101,45 @@ if [ "$HARDWAREMODE_CURRENT" = "SCART" ]; then
 fi
 
 ### Complete timings replacement 
-
-# Download pinHP official timings
 clear
-if ! [ -e /tmp/pinhp_timings_update ]; then
-  curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/pinhp_timings_update "$PINHP_TIMINGS"
-  response=$?
-  if [ "$response" = "28" ] || [ ! -e "/tmp/pinhp_timings_update" ]; then
-    if [ "$response" = "28" ]; then
-      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
-    else
-      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found\n\n" 0 0
-    fi
+
+if [ -e /tmp/advmame_rc_update ]; then
+  pinhp_timings_version=$( grep "pinhp_timings_version=" /tmp/advmame_rc_update | awk -F '=' '{print $2}' )
+  current_timings_version=$( grep "pinhp_timings_version=" $MAMECONFIG | awk -F '=' '{print $2}' )
+  if [ -z "$current_timings_version" ]; then
+    current_timings_version="n/a"
   fi
-fi
-
-current_timings_version=$( grep "pinhp_timings_version=" $MAMECONFIG | awk -F '=' '{print $2}' )
-pinhp_timings_version=$( grep "pinhp_timings_version=" "/tmp/pinhp_timings_update" | awk -F '=' '{print $2}' )
-
-if [ "$current_timings_version" != "$pinhp_timings_version" ]; then
-
-  # Download update script, do not download again within 10 minutes
-  if [ ! -e /tmp/pinhp_timings_script_last ]; then
-    echo $SECONDS > /tmp/pinhp_timings_script_last
-  fi
-  pinhp_timings_script_last=$( cat /tmp/pinhp_timings_script_last )
-  time_passed=$(( SECONDS - pinhp_timings_script_last ))
-  if ! [ -e /tmp/pinhp_timings_script.sh ] || [ $time_passed -gt 600 ]; then
-    curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/pinhp_timings_script.sh "$PINHP_TIMINGS_SCRIPT"
-    response=$?
-    if [ "$response" = "28" ] || [ ! -e "/tmp/pinhp_timings_script.sh" ]; then
-      joy2key_start "anykey"
-      if [ "$response" = "28" ]; then
-        dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection" 9 26
-      else
-        dialog --timeout 15 --begin 10 9 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found" 9 22
-      fi
-      joy2key_stop
-    else
+  if [ "$current_timings_version" != "$pinhp_timings_version" ]; then
+  
+    # Download update script, do not download again within 10 minutes
+    if [ ! -e /tmp/pinhp_timings_script_last ]; then
       echo $SECONDS > /tmp/pinhp_timings_script_last
     fi
-  fi
+    pinhp_timings_script_last=$( cat /tmp/pinhp_timings_script_last )
+    time_passed=$(( SECONDS - pinhp_timings_script_last ))
+    if ! [ -e /tmp/pinhp_timings_script.sh ] || [ $time_passed -gt 600 ]; then
+      curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/pinhp_timings_script.sh "$PINHP_TIMINGS_SCRIPT"
+      response=$?
+      if [ "$response" = "28" ] || [ ! -e "/tmp/pinhp_timings_script.sh" ]; then
+        joy2key_start "anykey"
+        if [ "$response" = "28" ]; then
+          dialog --timeout 15 --begin 10 7 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection" 9 26
+        else
+          dialog --timeout 15 --begin 10 9 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found" 9 22
+        fi
+        joy2key_stop
+      else
+        echo $SECONDS > /tmp/pinhp_timings_script_last
+      fi
+    fi
+    
+    # File exists already or has been just downloaded
+    if [ -e /tmp/pinhp_timings_script.sh ]; then
+      # Run update script
+      bash /tmp/pinhp_timings_script.sh "$MAMECONFIG" "$HARDWAREMODE_CURRENT" "$TEMPLATEFILE" "$RPI2JAMMA"
+    fi
   
-  # File exists already or has been just downloaded
-  if [ -e /tmp/pinhp_timings_script.sh ]; then
-    # Run update script
-    bash /tmp/pinhp_timings_script.sh "$MAMECONFIG" "$HARDWAREMODE_CURRENT" "$TEMPLATEFILE" "$RPI2JAMMA"
   fi
-
 fi
 
 ### Modelines update

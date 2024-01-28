@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# version=27JAN24
+# version=28JAN24
 
 MAMECONFIG=$1
 HARDWAREMODE_CURRENT=$2
@@ -45,176 +45,179 @@ joy2key_stop ()
   pkill joy2key &> /dev/null
 }
 
-PINHP_TIMINGS_JAMMA=$(grep "pinhp_timings_jamma" "/tmp/patch_server.txt" | awk -F 'pinhp_timings_jamma=' '{print $2}' )
-PINHP_TIMINGS_SCART=$(grep "pinhp_timings_scart" "/tmp/patch_server.txt" | awk -F 'pinhp_timings_scart=' '{print $2}' )
+ADVMAME_RC_PI2JAMMA=$(grep "advmame_rc_pi2jamma" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2jamma=' '{print $2}' )
+ADVMAME_RC_PI2SCART=$(grep "advmame_rc_pi2scart" "/tmp/patch_server.txt" | awk -F 'advmame_rc_pi2scart=' '{print $2}' )
   
 case $HARDWAREMODE_CURRENT in
   Jamma )
-    PINHP_TIMINGS="$PINHP_TIMINGS_JAMMA"
+    ADVMAME_RC_UPDATE="$ADVMAME_RC_PI2JAMMA"
   ;;
   SCART )
-    PINHP_TIMINGS="$PINHP_TIMINGS_SCART"
+    ADVMAME_RC_UPDATE="$ADVMAME_RC_PI2SCART"
   ;;
 esac
 
-### Update advmame timings
-PINHP_TIMINGS_VERSION="25JAN24 ($HARDWAREMODE_CURRENT)"
-
-current_timings_version=$( grep "pinhp_timings_version=" $MAMECONFIG | awk -F '=' '{print $2}' )
-if [ -z "$current_timings_version" ]; then
-  current_timings_version="n/a"
+# Download default advmame.rc file
+if ! [ -e /tmp/advmame_rc_update ]; then
+  curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/advmame_rc_update "$ADVMAME_RC_UPDATE"
+  response=$?
+  if [ "$response" = "28" ] || [ ! -e "/tmp/advmame_rc_update" ]; then
+    joy2key_start "anykey"
+    if [ "$response" = "28" ]; then
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
+    else
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\nadvmame.rc\n\n" 0 0
+    fi
+    joy2key_stop
+  fi
 fi
 
-joy2key_start "yesno"
-dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGAME RESOLUTION SETTINGS\n\nCurrent version: $current_timings_version\nUpdate version:  $PINHP_TIMINGS_VERSION\n\nDo you want to update\nand *REPLACE* existing\nsettings with optimized\nofficial values?\n\n" 17 29
-response=$?
-if [ "$response" = "0" ]; then
-  # Download advmame timings
-  clear
-  if ! [ -e /tmp/pinhp_timings_update ]; then
-    curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/pinhp_timings_update "$PINHP_TIMINGS"
-    response=$?
-    if [ "$response" = "28" ] || [ ! -e "/tmp/pinhp_timings_update" ]; then
-      if [ "$response" = "28" ]; then
-        dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
-      else
-        dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found\n\n" 0 0
-      fi
-    fi
-  fi
+### Update advmame timings
+if [ -e /tmp/advmame_rc_update ]; then
 
-  if [ -e /tmp/pinhp_timings_update ]; then
-    cat /tmp/pinhp_timings_update > /tmp/pinhp_timings_insert
+  pinhp_timings_version=$( grep "pinhp_timings_version=" /tmp/advmame_rc_update | awk -F '=' '{print $2}' )
+  current_timings_version=$( grep "pinhp_timings_version=" $MAMECONFIG | awk -F '=' '{print $2}' )
+  if [ -z "$current_timings_version" ]; then
+    current_timings_version="n/a"
   fi
   
-  # Add individual game settings to pinHP default games, if none exist
-  if [ -e /tmp/pinhp_timings_insert ]; then
-    echo "" >> /tmp/pinhp_timings_insert
-
-    if ! grep -q "amidar.display_mode" "$MAMECONFIG"; then
-      echo "amidar/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "amidar.display_resize" "$MAMECONFIG"; then
-      echo "amidar/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "frogger.display_mode" "$MAMECONFIG"; then
-      echo "frogger/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "frogger.display_resize" "$MAMECONFIG"; then
-      echo "frogger/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "galaxian.display_mode" "$MAMECONFIG"; then
-      echo "galaxian/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "galaxian.display_resize" "$MAMECONFIG"; then
-      echo "galaxian/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "gradius.display_mode" "$MAMECONFIG"; then
-      echo "gradius/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "gradius.display_resize" "$MAMECONFIG"; then
-      echo "gradius/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "hustler.display_mode" "$MAMECONFIG"; then
-      echo "hustler/display_mode 320x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "invaders.display_mode" "$MAMECONFIG"; then
-      echo "invaders/display_mode 320x224 (60.02 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "kingball.display_mode" "$MAMECONFIG"; then
-      echo "kingball/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "kingball.display_resize" "$MAMECONFIG"; then
-      echo "kingball/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "mooncrst.display_mode" "$MAMECONFIG"; then
-      echo "mooncrst/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "mooncrst.display_resize" "$MAMECONFIG"; then
-      echo "mooncrst/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "pacmania.display_brightness" "$MAMECONFIG"; then
-      echo "pacmania/display_brightness 2.2" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "pacmania.display_gamma" "$MAMECONFIG"; then
-      echo "pacmania/display_gamma 0.7" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "polepos.display_mode" "$MAMECONFIG"; then
-      echo "polepos/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "polepos.display_resize" "$MAMECONFIG"; then
-      echo "polepos/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "scobra.display_mode" "$MAMECONFIG"; then
-      echo "scobra/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "scobra.display_resize" "$MAMECONFIG"; then
-      echo "scobra/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "scramble.display_mode" "$MAMECONFIG"; then
-      echo "scramble/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "scramble.display_resize" "$MAMECONFIG"; then
-      echo "scramble/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "theend.display_mode" "$MAMECONFIG"; then
-      echo "theend/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "theend.display_resize" "$MAMECONFIG"; then
-      echo "theend/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if ! grep -q "vanvan.display_mode" "$MAMECONFIG"; then
-      echo "vanvan/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
-    fi
-    if ! grep -q "vanvan.display_resize" "$MAMECONFIG"; then
-      echo "vanvan/display_resize integer" >> /tmp/pinhp_timings_insert
-    fi
-
-    if [ "$HARDWAREMODE_CURRENT" = "Jamma" ]; then
-      if ! grep -q "qbert.input_map" "$MAMECONFIG"; then
-        echo "qbert/input_map[p1_right] keyboard[0,right] keyboard[0,down]" >> /tmp/pinhp_timings_insert
-        echo "qbert/input_map[p1_left] keyboard[0,left] keyboard[0,up]" >> /tmp/pinhp_timings_insert
-        echo "qbert/input_map[p1_up] keyboard[0,right] keyboard[0,up]" >> /tmp/pinhp_timings_insert
-        echo "qbert/input_map[p1_down] keyboard[0,left] keyboard[0,down]" >> /tmp/pinhp_timings_insert
-        echo "qbert/input_map[start1] keyboard[0,1] or keyboard[0,lcontrol]" >> /tmp/pinhp_timings_insert
+  joy2key_start "yesno"
+  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGAME RESOLUTION SETTINGS\n\nCurrent version: $current_timings_version\nUpdate version:  $pinhp_timings_version\n\nDo you want to update\nand *REPLACE* existing\nsettings with optimized\nofficial values?\n\n" 17 29
+  response=$?
+  if [ "$response" = "0" ]; then
+    clear
+    sed -n '/device_video_clock/,/1344x240x60.display_resize/p' /tmp/advmame_rc_update > /tmp/pinhp_timings_insert
+    
+    # Add individual game settings to pinHP default games, if none exist
+    if [ -e /tmp/pinhp_timings_insert ]; then
+      echo "" >> /tmp/pinhp_timings_insert
+  
+      if ! grep -q "amidar.display_mode" "$MAMECONFIG"; then
+        echo "amidar/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
       fi
+      if ! grep -q "amidar.display_resize" "$MAMECONFIG"; then
+        echo "amidar/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "frogger.display_mode" "$MAMECONFIG"; then
+        echo "frogger/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "frogger.display_resize" "$MAMECONFIG"; then
+        echo "frogger/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "galaxian.display_mode" "$MAMECONFIG"; then
+        echo "galaxian/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "galaxian.display_resize" "$MAMECONFIG"; then
+        echo "galaxian/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "gradius.display_mode" "$MAMECONFIG"; then
+        echo "gradius/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "gradius.display_resize" "$MAMECONFIG"; then
+        echo "gradius/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "hustler.display_mode" "$MAMECONFIG"; then
+        echo "hustler/display_mode 320x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "invaders.display_mode" "$MAMECONFIG"; then
+        echo "invaders/display_mode 320x224 (60.02 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "kingball.display_mode" "$MAMECONFIG"; then
+        echo "kingball/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "kingball.display_resize" "$MAMECONFIG"; then
+        echo "kingball/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "mooncrst.display_mode" "$MAMECONFIG"; then
+        echo "mooncrst/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "mooncrst.display_resize" "$MAMECONFIG"; then
+        echo "mooncrst/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "pacmania.display_brightness" "$MAMECONFIG"; then
+        echo "pacmania/display_brightness 2.2" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "pacmania.display_gamma" "$MAMECONFIG"; then
+        echo "pacmania/display_gamma 0.7" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "polepos.display_mode" "$MAMECONFIG"; then
+        echo "polepos/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "polepos.display_resize" "$MAMECONFIG"; then
+        echo "polepos/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "scobra.display_mode" "$MAMECONFIG"; then
+        echo "scobra/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "scobra.display_resize" "$MAMECONFIG"; then
+        echo "scobra/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "scramble.display_mode" "$MAMECONFIG"; then
+        echo "scramble/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "scramble.display_resize" "$MAMECONFIG"; then
+        echo "scramble/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "theend.display_mode" "$MAMECONFIG"; then
+        echo "theend/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "theend.display_resize" "$MAMECONFIG"; then
+        echo "theend/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if ! grep -q "vanvan.display_mode" "$MAMECONFIG"; then
+        echo "vanvan/display_mode 1920x224 (60.61 Hz)" >> /tmp/pinhp_timings_insert
+      fi
+      if ! grep -q "vanvan.display_resize" "$MAMECONFIG"; then
+        echo "vanvan/display_resize integer" >> /tmp/pinhp_timings_insert
+      fi
+  
+      if [ "$HARDWAREMODE_CURRENT" = "Jamma" ]; then
+        if ! grep -q "qbert.input_map" "$MAMECONFIG"; then
+          echo "qbert/input_map[p1_right] keyboard[0,right] keyboard[0,down]" >> /tmp/pinhp_timings_insert
+          echo "qbert/input_map[p1_left] keyboard[0,left] keyboard[0,up]" >> /tmp/pinhp_timings_insert
+          echo "qbert/input_map[p1_up] keyboard[0,right] keyboard[0,up]" >> /tmp/pinhp_timings_insert
+          echo "qbert/input_map[p1_down] keyboard[0,left] keyboard[0,down]" >> /tmp/pinhp_timings_insert
+          echo "qbert/input_map[start1] keyboard[0,1] or keyboard[0,lcontrol]" >> /tmp/pinhp_timings_insert
+        fi
+      fi
+  
+      echo "" >> /tmp/pinhp_timings_insert
     fi
-
-    echo "" >> /tmp/pinhp_timings_insert
+  
+    # Replace resolution settings code in advmame.rc
+    if [ -e /tmp/pinhp_timings_insert ]; then
+      # Remove modelines, or rather anything between "device_video_clock" and the first occurence of resolution specific display modes
+      sed -i -E '/device_video_clock/,/[0-9]+x[0-9]+.*\/display/{//!d}' "$MAMECONFIG"
+      # Remove all remaining modelines, just in case any were left
+      sed -i '/device_video_modeline/d' "$MAMECONFIG"
+      # Remove all resolution specific display modes
+      sed -i -E '/[0-9]+x[0-9]+.*\/display/d' "$MAMECONFIG"
+      # Remove remaining blank lines after "device_video_clock"
+      sed -i -E '/device_video_clock/,/.+/{/^[[:space:]]*$/d}' "$MAMECONFIG"
+      # Insert official timings (replace "device_video_clock" with official timings)
+      sed -i -e '/device_video_clock/r /tmp/pinhp_timings_insert' -e '/device_video_clock/d' "$MAMECONFIG"
+      rm /tmp/pinhp_timings_insert
+    fi
+  
+    UPDATED="Y"
+    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\nResolution settings update\n\nDone!\n\n" 0 0
+  else
+    NOCHANGES="Y"  
   fi
+  joy2key_stop
 
-  # Replace resolution settings code in advmame.rc
-  if [ -e /tmp/pinhp_timings_insert ]; then
-    # Remove modelines, or rather anything between "device_video_clock" and the first occurence of resolution specific display modes
-    sed -i -E '/device_video_clock/,/[0-9]+x[0-9]+.*\/display/{//!d}' "$MAMECONFIG"
-    # Remove all remaining modelines, just in case any were left
-    sed -i '/device_video_modeline/d' "$MAMECONFIG"
-    # Remove all resolution specific display modes
-    sed -i -E '/[0-9]+x[0-9]+.*\/display/d' "$MAMECONFIG"
-    # Remove remaining blank lines after "device_video_clock"
-    sed -i -E '/device_video_clock/,/.+/{/^[[:space:]]*$/d}' "$MAMECONFIG"
-    # Insert official timings (replace "device_video_clock" with official timings)
-    sed -i -e '/device_video_clock/r /tmp/pinhp_timings_insert' -e '/device_video_clock/d' "$MAMECONFIG"
-    rm /tmp/pinhp_timings_insert
-  fi
-
-  UPDATED="Y"
-  dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\nResolution settings update\n\nDone!\n\n" 0 0
-else
-  NOCHANGES="Y"  
 fi
-joy2key_stop
