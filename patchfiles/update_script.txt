@@ -56,6 +56,8 @@ PINHP_TIMINGS_SCRIPT=$(grep "pinhp_timings_script" "/tmp/patch_server.txt" | awk
 PINHP_TIMINGS_JAMMA=$(grep "pinhp_timings_jamma" "/tmp/patch_server.txt" | awk -F 'pinhp_timings_jamma=' '{print $2}' )
 PINHP_TIMINGS_SCART=$(grep "pinhp_timings_scart" "/tmp/patch_server.txt" | awk -F 'pinhp_timings_scart=' '{print $2}' )
 
+rm /tmp/insert_code &> /dev/null
+
 if grep -q "^# mameconfig=." $MAMECONFIG; then
   MAME_INSERT_AFTER="^# mameconfig=."
 else
@@ -85,6 +87,32 @@ if ! [ -e /tmp/advmame_rc_update ]; then
       dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\nadvmame.rc\n\n" 0 0
     fi
     joy2key_stop
+  fi
+fi
+
+# Download default _games.template file
+if ! [ -e /tmp/template_update ]; then
+  curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/template_update "$TEMPLATE_UPDATE"
+  response=$?
+  if [ "$response" = "28" ] || [ ! -e "/tmp/template_update" ]; then
+    if [ "$response" = "28" ]; then
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
+    else
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\n_games.template\n\n" 0 0
+    fi
+  fi
+fi
+
+# Download default _database.csv file
+if ! [ -e /tmp/database_update ]; then
+  curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/database_update "$DATABASE_UPDATE"
+  response=$?
+  if [ "$response" = "28" ] || [ ! -e "/tmp/database_update" ]; then
+    if [ "$response" = "28" ]; then
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
+    else
+      dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\n_database.csv\n\n" 0 0
+    fi
   fi
 fi
 
@@ -351,41 +379,29 @@ joy2key_stop
 fi
 
 ### Update _games.template
-UPDATE_VERSION="20OCT21"
+if [ -e /tmp/template_update ]; then
 
-current_template_version=$( grep "version=" $TEMPLATEFILE | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
-if [ -z "$current_template_version" ]; then
-  current_template_version="unknown"
-fi
-
-if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
-  joy2key_start "yesno"
-  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame definition file\n'_games.template'\n\nCurrent version: $current_template_version\nUpdate version:  $UPDATE_VERSION\n\nFavourites and existing 'joy'\nparameter entries in this\nfile will be automatically\nbacked up and restored.\n\nDo you want to update?\n\n" 0 0
-  response=$?
-  if [ "$response" = "0" ]; then
-    # Download _games.template
-    clear
-    if ! [ -e /tmp/template_update ]; then
-      curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/template_update "$TEMPLATE_UPDATE"
-      response=$?
-      if [ "$response" = "28" ] || [ ! -e "/tmp/template_update" ]; then
-        if [ "$response" = "28" ]; then
-          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
-        else
-          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\n_games.template\n\n" 0 0
-        fi
-      fi
-    fi
-    if [ -e /tmp/template_update ]; then
+  update_template_version=$( grep "version=" /tmp/template_update | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
+  current_template_version=$( grep "version=" $TEMPLATEFILE | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
+  if [ -z "$current_template_version" ]; then
+    current_template_version="n/a"
+  fi
   
+  if [ "$current_template_version" != "$update_template_version" ]; then
+    joy2key_start "yesno"
+    dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame definition file\n'_games.template'\n\nCurrent version: $current_template_version\nUpdate version:  $update_template_version\n\nFavourites and existing 'joy'\nparameter entries in this\nfile will be automatically\nbacked up and restored.\n\nDo you want to update?\n\n" 0 0
+    response=$?
+    if [ "$response" = "0" ]; then
+      # Download _games.template
       clear
+  
       favcount=$( grep -E "(1ONE|1TWO|1TRE|0ALL|1FAV)" $TEMPLATEFILE | grep -v "_DUMMY" | wc -l )
       mkdir -p /tmp/backup  
       cp $TEMPLATEFILE /tmp/backup/
       
       # Remove mario and pacman from default favourites
       sed -i 's/-0ONE-0TWO-0TRE-1ALL-1FAV/-0ONE-0TWO-0TRE-1ALL-0FAV/' /tmp/template_update
-
+  
       # Update new template with joy params from backup
       rm /tmp/template_update_joy &> /dev/null
       touch /tmp/template_update_joy
@@ -393,7 +409,7 @@ if [ "$current_template_version" != "$UPDATE_VERSION" ]; then
       sed -i 's/^ *//g' /tmp/template_backup_joy
       awk -v BACKUPFILE="/tmp/template_backup_joy" -v TEMPLATEFILE="/tmp/template_update" -v OUTFILE="/tmp/template_update_joy" -f "/root/scripts/joy_restore.awk"
       cp /tmp/template_update_joy $TEMPLATEFILE
-
+  
       # Restore favourites
       FAVGAMES="/tmp/favgames.template"
       if [ -e "/tmp/backup/_games.template" ]; then
@@ -430,51 +446,42 @@ EOF
       fi
       rm $FAVGAMES &> /dev/null
       rm /tmp/template_update_joy &> /dev/null
-  
+    
+      UPDATED="Y"
+      dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\n_games.template\n\nDone!\n\n" 0 0
+    else
+      NOCHANGES="Y"
     fi
-    UPDATED="Y"
-    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\n_games.template\n\nDone!\n\n" 0 0
-  else
-    NOCHANGES="Y"
+  joy2key_stop
   fi
-joy2key_stop
+
 fi
 
 ### Update _database.csv
-UPDATE_VERSION="20230310"
+if [ -e /tmp/database_update ]; then
 
-current_database_version=$( grep "version=" $FILTERFILE | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
-if [ -z "$current_template_version" ]; then
-  current_database_version="unknown"
-fi
-
-if [ "$current_database_version" != "$UPDATE_VERSION" ]; then
-  joy2key_start "yesno"
-  dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame filter file\n'_database.csv'\n\nCurrent version: $current_database_version\nUpdate version:  $UPDATE_VERSION\n\nDo you want to update and\noverwrite existing version?\n\n" 0 0
-  response=$?
-  if [ "$response" = "0" ]; then
-    # Download _database.csv
-    clear
-    if ! [ -e /tmp/database_update ]; then
-      curl --connect-timeout $CONNECTION_TIMEOUT -k -L -o /tmp/database_update "$DATABASE_UPDATE"
-      response=$?
-      if [ "$response" = "28" ] || [ ! -e "/tmp/database_update" ]; then
-        if [ "$response" = "28" ]; then
-          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** TIMEOUT ERROR ***\n\nCheck connection\n\n" 0 0
-        else
-          dialog --timeout 15 --title "pinHP Arcade Classics" --msgbox "\n*** ERROR ***\n\nFile not found:\n_database.csv\n\n" 0 0
-        fi
-      fi
-    fi
-    if [ -e /tmp/database_update ]; then
-      cp /tmp/database_update $FILTERFILE      
-    fi
-    UPDATED="Y"
-    dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\n_database.csv\n\nDone!\n\n" 0 0
-  else
-    NOCHANGES="Y"  
+  update_database_version=$( grep "version=" /tmp/database_update | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
+  current_database_version=$( grep "version=" $FILTERFILE | awk -F 'version=' '{print $2}' | grep -o "[0-9,A-Z,a-z]*" )
+  if [ -z "$current_database_version" ]; then
+    current_database_version="n/a"
   fi
-  joy2key_stop
+  
+  if [ "$current_database_version" != "$update_database_version" ]; then
+    joy2key_start "yesno"
+    dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame filter file\n'_database.csv'\n\nCurrent version: $current_database_version\nUpdate version:  $update_database_version\n\nDo you want to update and\noverwrite existing version?\n\n" 0 0
+    response=$?
+    if [ "$response" = "0" ]; then
+      # Download _database.csv
+      clear
+      cp /tmp/database_update $FILTERFILE      
+      UPDATED="Y"
+      dialog --timeout 3 --title "pinHP Arcade Classics" --msgbox "\n_database.csv\n\nDone!\n\n" 0 0
+    else
+      NOCHANGES="Y"  
+    fi
+    joy2key_stop
+  fi
+
 fi
 
 rm /tmp/insert_code &> /dev/null
