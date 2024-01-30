@@ -1,4 +1,4 @@
-# version=20230310
+# version=20240128
 
 Rom;Genre;Year;Manufacturer;System;Clone;AKNF;Buttons;Controls;Mature;Players;Monitor;Slow;Notes
 005;Maze;1981;Sega;;NO;false;1;joystick (4-way);NO;2P alt;CRT 15kHz;;
@@ -5293,6 +5293,7 @@ tactcian;Shooter;1982;Konami (Sega license);;NO;false;2;joystick (4-way);NO;2P a
 tagteam;Sports;1983;Technos Japan (Data East license);;YES;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 tail2nos;Driving;1989;V-System Co.;;NO;false;2;joystick (2-way),joystick (analog);NO;1P;CRT 15kHz;;
 tailg;Shooter;1979;Cinematronics;;NO;false;2;joystick (analog);NO;1P;-;;
+taitogn;Unplayable;1997;Taito;;NO;false;3;joystick (8-way);NO;4P sim;15kHz;;
 taiwanmb;Tabletop;1988;Miki Syouji;;NO;false;29;mahjong;YES;1P;CRT 15kHz;;
 talbot;Maze;1982;Alpha Denshi Co. (Volt Electronics license);;NO;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
 tangtang;Platform;2000;ESD;;NO;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
