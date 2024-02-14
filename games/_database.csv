@@ -1,4 +1,4 @@
-# version=20240128
+# version=20240211
 
 Rom;Genre;Year;Manufacturer;System;Clone;AKNF;Buttons;Controls;Mature;Players;Monitor;Slow;Notes
 005;Maze;1981;Sega;;NO;false;1;joystick (4-way);NO;2P alt;CRT 15kHz;;
@@ -201,7 +201,8 @@ appoooh;Sports;1984;Sanritsu / Sega;;NO;false;3;joystick (8-way);NO;2P alt;CRT 1
 aquajack;Shooter;1990;Taito Corporation Japan;;NO;true;0;joystick (8-way),dial;NO;1P;CRT 15kHz;;
 aquajckj;Shooter;1990;Taito Corporation;;YES;false;4;joystick (8-way),dial;NO;-;CRT 15kHz;;
 aquarium;Puzzle;1996;Excellent System;;NO;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
-aquarush;Puzzle;1999;Namco;;NO;false;6;joystick (8-way);NO;2P sim;CRT 31kHz;;
+aquarush;Puzzle;1999;Namco;;NO;false;6;joystick (8-way);NO;2P sim;CRT 15kHz;;
+aquario;Platform;1992;Sega;;NO;false;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
 ar_airh;Sports;1988;Arcadia Systems;;NO;false;2;joystick (8-way);NO;2P sim;CRT 31kHz;;
 ar_bowl;Sports;1988;Arcadia Systems;;NO;false;2;joystick (8-way);NO;2P alt;CRT 31kHz;;
 ar_dart;Sports;1987;Arcadia Systems;;NO;false;2;joystick (8-way);NO;2P alt;CRT 31kHz;;
@@ -339,6 +340,7 @@ avspj;Fighter;1994;Capcom;CP System II;YES;false;3;joystick (8-way);NO;3P sim;CR
 avspu;Fighter;1994;Capcom;CP System II;YES;false;3;joystick (8-way);NO;3P sim;CRT 15kHz;;
 aztarac;Shooter;1983;Centuri;;NO;false;2;joystick (analog),dial;NO;2P alt;-;;
 azurian;Shooter;1982;Rait Electronics Ltd;;NO;false;1;joystick (8-way);NO;2P alt;CRT 15kHz;;
+b2b;Platform;2010;Visco;NeoGeo;NO;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
 backfira;Unplayable;1995;Data East Corporation;;YES;false;6;joystick (8-way),paddle;NO;-;CRT 15kHz;;
 backfire;Driving;1995;Data East Corporation;;NO;false;3;joystick (8-way),paddle;NO;2P sim;CRT 15kHz;;
 baddudes;Platform;1988;Data East USA;;NO;true;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
@@ -601,6 +603,7 @@ boxyboy;Maze;1990;Namco;;NO;false;3;joystick (8-way);NO;1P;CRT 15kHz;;
 bradley;Shooter;1980;Atari;;NO;false;10;joystick (analog);NO;1P;-;;
 brain;Shooter;1986;Coreland / Sega;;NO;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 brapboys;Fighter;1992;Kaneko;;NO;true;2;joystick (8-way);NO;3P sim;CRT 15kHz;;
+brapboysj;Fighter;1992;Kaneko;;YES;true;2;joystick (8-way);NO;3P sim;CRT 15kHz;;
 brdrlinb;Shooter;1981;bootleg (Karateco);;YES;false;1;joystick (4-way);NO;2P alt;CRT 15kHz;;
 brdrline;Shooter;1981;Sega;;NO;false;1;joystick (4-way);NO;2P alt;CRT 15kHz;;
 breakers;Vs Fighter;1996;Visco;NeoGeo;NO;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
@@ -680,7 +683,9 @@ bzone;Shooter;1980;Atari;;NO;true;1;vertical double joystick (2-way);NO;1P;-;;
 bzone2;Shooter;1980;Atari;;YES;false;1;vertical double joystick (2-way);NO;-;-;;
 bzonec;Shooter;1980;Atari;;YES;false;1;vertical double joystick (2-way);NO;1P;-;;
 cabal;Shooter;1988;TAD Corporation;;NO;true;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
-cabal2;Shooter;1988;Tad (Fabtek license);;YES;false;2;trackball;NO;-;CRT 15kHz;;
+cabala;Shooter;1988;Tad (Alpha Trading);;YES;false;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
+cabalus;Shooter;1988;TAD Corporation;;YES;true;2;trackball;NO;2P sim;CRT 15kHz;;
+cabalus2;Shooter;1988;TAD Corporation;;YES;true;2;trackball;NO;2P sim;CRT 15kHz;;
 cabalbl;Shooter;1988;bootleg (Red Corporation);;YES;false;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
 cabaret;Casino;1992;AMT Co. Ltd.;;NO;false;13;gambling;YES;???;CRT 15kHz;;
 cachat;Puzzle;1993;Taito Corporation;;NO;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
@@ -1229,6 +1234,7 @@ denjinmk;Fighter;1994;Winkysoft (Banpresto license);;NO;true;2;joystick (8-way);
 depthch;Shooter;1977;Gremlin;;NO;false;2;joystick (2-way);NO;1P;CRT 15kHz;;
 depthv1;Shooter;1977;Gremlin;;YES;false;2;joystick (2-way);NO;-;CRT 15kHz;;
 deroon;Puzzle;1995;Tecmo;;NO;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;Not playable on 0.106
+deroon2;Puzzle;1995;Tecmo;;NO;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
 desert;Shooter;1994;Sega / Martin Marietta;;NO;false;6;joystick (analog),paddle,pedal;NO;???;CRT 25kHz;;
 desertbr;Shooter;1992;Sega;;NO;false;3;joystick (8-way);NO;3P sim;CRT 15kHz;;
 desertgu;Lightgun;1977;Dave Nutting Associates / Midway;;NO;false;1;lightgun;NO;1P;CRT 15kHz;;
@@ -1315,6 +1321,7 @@ dogosoke;Shooter;1986;SNK;;YES;false;0;joystick (8-way),positional;NO;2P sim;CRT
 dogosokj;Shooter;1986;bootleg;;YES;false;2;joystick (8-way);NO;-;CRT 15kHz;;
 dogpatch;Shooter;1977;Midway;;NO;false;1;positional;NO;2P sim;CRT 15kHz;;
 dogyuun;Shooter;1992;Toaplan;;NO;true;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
+dogyuunto;Shooter;1992;Toaplan;;NO;true;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
 dokaben;Sports;1989;Capcom;;NO;false;2;joystick (4-way);NO;2P sim;CRT 15kHz;;
 dokyusei;Tabletop;1995;Make Software / Elf / Media Trading;;NO;false;19;mahjong;YES;1P;CRT 15kHz;;
 dokyusp;Tabletop;1995;Make Software / Elf / Media Trading;;NO;false;19;mahjong;YES;1P;CRT 15kHz;;
@@ -2161,6 +2168,7 @@ hdrivair;Driving;1993;Atari Games;;NO;false;0;joystick (analog),paddle,pedal;NO;
 headon;Maze;1979;Gremlin;;NO;false;1;joystick (4-way);NO;2P alt;CRT 15kHz;;
 headon2;Maze;1979;Sega;;NO;false;1;joystick (4-way);NO;2P alt;CRT 15kHz;;
 headonb;Maze;1979;bootleg (EFG Sanremo);;YES;false;1;joystick (8-way);NO;1P;CRT 15kHz;;
+headonch;Maze;1994;hack;;NO;false;1;joystick (8-way);NO;2P;CRT 15kHz;;
 headoni;Maze;1979;Irem;;NO;false;1;joystick (8-way);NO;2P alt;CRT 15kHz;;
 heartatk;Maze;1983;Century Electronics;;NO;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 heatbrl;Shooter;1992;TAD Corporation;;NO;false;2;joystick (8-way);NO;4P sim;CRT 15kHz;;
@@ -2273,6 +2281,10 @@ hvnsgate;Vs Fighter;1996;Racdym / Atlus;;NO;false;3;joystick (8-way);NO;2P sim;C
 hvoltage;Shooter;1985;Alpha Denshi Co.;;NO;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 hvymetal;Shooter;1985;Sega;;NO;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 hvysmsh;Sports;1993;Data East Corporation;;NO;true;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
+hvyunit;Shooter;1988;Kaneko / Taito;;NO;true;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
+hvyunitj;Shooter;1988;Kaneko / Taito;;YES;true;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
+hvyunitjo;Shooter;1988;Kaneko / Taito;;YES;true;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
+hvyunitu;Shooter;1988;Kaneko / Taito;;YES;true;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
 hwchamp;Sports;1987;Sega;Sega System 16;NO;false;0;joystick (analog);NO;1P;CRT 15kHz;;
 hwrace;Driving;1983;Taito Corporation;;NO;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 hydra;Shooter;1990;Atari Games;;NO;false;0;joystick (analog),pedal;NO;1P;CRT 15kHz;;
@@ -2355,6 +2367,7 @@ invrvnge;Shooter;1980?;Zenitone-Microsec Ltd.;;NO;false;1;joystick (2-way);NO;2P
 ipminvad;Shooter;1979;IPM;;NO;false;1;joystick (2-way);NO;2P alt;CRT 15kHz;;
 iqblock;Puzzle;1993;IGS;;NO;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
 irobot;Shooter;1983;Atari;;NO;false;2;joystick (analog);NO;2P alt;CRT 15kHz;YES;Slow
+ironclad;Shooter;1996;Saurus;NeoGeo;NO;false;4;joystick (8-way);NO;2P alt;CRT 15kHz;;
 ironhors;Platform;1986;Konami;;NO;false;3;joystick (4-way);NO;2P alt;CRT 15kHz;;
 irrmaze;Maze;1997;SNK / Saurus;NeoGeo;NO;true;2;trackball,only_buttons;NO;1P;CRT 15kHz;;
 ixion;Shooter;1983;Sega;;NO;false;1;joystick (8-way),dial;NO;2P alt;CRT 15kHz;;
@@ -2861,6 +2874,7 @@ marble;Maze;1984;Atari Games;;NO;true;0;trackball;NO;2P sim;CRT 15kHz;;
 marble2;Maze;1984;Atari Games;;YES;false;0;trackball;NO;2P sim;CRT 15kHz;;
 marble3;Maze;1984;Atari Games;;YES;false;0;trackball;NO;2P sim;CRT 15kHz;;
 marble4;Maze;1984;Atari Games;;YES;false;0;trackball;NO;2P sim;CRT 15kHz;;
+marblmd2;Maze;1991;Atari Games;;NO;false;1;joystick (8-way);NO;3P sim;CRT 15kHz;;
 marineb;Shooter;1982;Orca;;NO;false;1;joystick (8-way);NO;2P alt;CRT 15kHz;;
 marinedt;Maze;1981;Taito;;NO;false;1;trackball;NO;2P alt;CRT 15kHz;;
 mariner;Shooter;1981;Amenip;;NO;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
@@ -2975,6 +2989,7 @@ mgolf;Sports;1978;Atari;;NO;false;2;dial;NO;1P;CRT 15kHz;;
 mhavoc;Shooter;1983;Atari;;NO;false;2;dial,only_buttons;NO;2P alt;CRT 15kHz;;
 mhavoc2;Shooter;1983;Atari;;YES;false;2;dial,only_buttons;NO;2P alt;CRT 15kHz;;
 mhavocp;Shooter;1983;Atari;;YES;false;2;dial,only_buttons;NO;1P;CRT 15kHz;;
+mhavocpex7;Shooter;1983;Atari;;YES;false;2;dial,only_buttons;NO;2P alt;CRT 15kHz;;
 mhavocrv;Shooter;2006;hack (JMA);;YES;false;2;dial,only_buttons;NO;2P alt;CRT 15kHz;;
 mhgaiden;Tabletop;1987;Home Data;;NO;false;21;mahjong;YES;1P;CRT 15kHz;;
 mhhonban;Tabletop;1994;Nichibutsu;;NO;false;26;mahjong;YES;1P;CRT 15kHz;;
@@ -3481,6 +3496,7 @@ ojousanm;Tabletop;1987;Nichibutsu;;YES;false;26;mahjong;YES;1P;CRT 15kHz;;
 olds;Fighter;1998;IGS;;NO;false;4;joystick (8-way);NO;4P sim;CRT 15kHz;;
 olds100;Fighter;1998;IGS;;YES;false;4;joystick (8-way);NO;4P sim;CRT 15kHz;;
 olds100a;Fighter;1998;IGS;;YES;false;4;joystick (8-way);NO;4P sim;CRT 15kHz;;
+olds103t;Fighter;1998;IGS;;YES;false;4;joystick (8-way);NO;4P sim;CRT 15kHz;;
 olibochu;Maze;1981;Irem / GDI;;NO;false;0;joystick (4-way);NO;2P alt;CRT 15kHz;;
 olysoc92;Sports;1992;Seibu Kaihatsu;;YES;false;3;joystick (8-way);NO;4P sim;CRT 15kHz;;
 omega;Ball & Paddle;1986;Nihon System;;NO;false;2;dial;NO;2P alt;CRT 15kHz;;
@@ -3493,7 +3509,9 @@ oneshot;Lightgun;1996;Promat;;NO;false;1;lightgun;NO;2P sim;CRT 15kHz;;
 onetwo;Puzzle;1997;Barko;;NO;false;3;joystick (8-way);YES;2P alt;CRT 15kHz;;
 onna34ra;Vs Fighter;1985;Taito;;YES;false;2;joystick (8-way);NO;-;CRT 15kHz;;
 onna34ro;Vs Fighter;1985;Taito;;NO;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
+ooparts;Ball & Paddle;1992;Sega;;NO;false;3;joystick (8-way);NO;2P alt;CRT 15kHz;;
 opaopa;Shooter;1987;Sega;;NO;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
+opaopan;Shooter;1987;Sega;;NO;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
 opengol2;Sports;1994;Konami;;YES;false;3;joystick (8-way),paddle,pedal;NO;-;CRT 15kHz;;
 opengolf;Sports;1994;Konami;;NO;false;1;joystick (8-way);NO;???;CRT 15kHz;;
 openice;Sports;1995;Midway;;NO;false;3;joystick (8-way);NO;4P sim;CRT 15kHz;YES;Slow
@@ -4679,6 +4697,7 @@ shocktr2;Shooter;1998;Saurus;NeoGeo;NO;true;4;joystick (8-way);NO;2P sim;CRT 15k
 shocktra;Shooter;1997;Saurus;;YES;false;4;joystick (8-way);NO;-;CRT 15kHz;;
 shocktro;Shooter;1997;Saurus;NeoGeo;NO;true;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
 shogwarr;Vs Fighter;1992;Kaneko;;NO;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
+shogwarre;Vs Fighter;1992;Kaneko;;YES;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
 shollow;Shooter;1981;Bally Midway;;NO;true;2;joystick (2-way);NO;2P alt;CRT 31kHz;;
 shollow2;Shooter;1981;Bally Midway;;YES;false;2;joystick (2-way);NO;2P alt;CRT 31kHz;;
 shootbul;Sports;1985;Bally Midway;;NO;false;1;trackball;NO;4P alt;CRT 15kHz;;
@@ -5055,6 +5074,7 @@ sslam;Sports;1993;Playmark;;NO;false;3;joystick (8-way);NO;4P sim;CRT 15kHz;;
 sslama;Sports;1993;Playmark;;YES;false;3;joystick (8-way);NO;4P sim;CRT 15kHz;;
 ssmissin;Shooter;1992;Comad;;NO;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
 ssoldier;Vs Fighter;1993;Irem America;;NO;false;6;joystick (8-way);NO;2P sim;CRT 15kHz;;
+ssonicbr;Puzzle;1992;Sega;;NO;false;1;joystick (8-way);NO;2P alt;CRT 15kHz;;
 ssozumo;Sports;1984;Technos Japan;;NO;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 sspacaho;MultiGame;1979;Sega;;NO;false;2;joystick (4-way);NO;2P alt;CRT 15kHz;;
 sspacat2;Shooter;1979;Sega;;YES;false;1;joystick (2-way);NO;-;CRT 15kHz;;
@@ -5340,6 +5360,7 @@ tdragon;Shooter;1991;NMK (Tecmo license);;NO;false;2;joystick (8-way);NO;2P sim;
 tdragon2;Shooter;1993;NMK;;NO;false;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
 tdragonb;Shooter;1991;bootleg;;YES;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
 teamqb;Sports;1988;Leland Corporation;;NO;false;1;joystick (8-way),joystick (analog);NO;4P sim;CRT 15kHz;;
+teetert;Shooter;1982;;;NO;false;1;dial;NO;1P;CRT 15kHz;;
 teamqb2;Sports;1988;Leland Corporation;;YES;false;1;joystick (8-way),joystick (analog);NO;4P sim;CRT 15kHz;;
 techromn;Vs Fighter;1998;Capcom;;NO;false;6;joystick (8-way);NO;2P sim;CRT 31kHz;;
 techromu;Not Classified;1998;Capcom;;YES;false;6;joystick (8-way);NO;-;CRT 31kHz;;
@@ -5470,6 +5491,7 @@ tinv2650;Shooter;1979?;Zaccaria / Zelco;;NO;false;1;joystick (2-way);NO;2P alt;C
 tiptop;Platform;1983;Sega;;YES;false;1;joystick (8-way);NO;2P alt;CRT 15kHz;;
 titlef;Sports;1992;Sega;;NO;false;0;double joystick (8-way);NO;2P sim;CRT 15kHz;;
 titlefu;Sports;1992;Sega;;YES;false;0;double joystick (8-way);NO;2P sim;CRT 15kHz;;
+tkdensha;Vs Fighter;1996;Tecmo;;NO;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
 tkdensho;Vs Fighter;1996;Tecmo;;NO;false;4;joystick (8-way);NO;2P sim;CRT 15kHz;;
 tkmmpzdm;Puzzle;1995;Konami;;NO;false;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
 tknight;Platform;1989;Tecmo;;YES;false;3;joystick (8-way);NO;2P sim;CRT 15kHz;;
@@ -5696,6 +5718,7 @@ tylz;Maze;1982;Mylstar;;NO;false;1;joystick (8-way);NO;2P alt;CRT 15kHz;;
 typhoon;Shooter;1987;Konami;;YES;false;3;joystick (8-way);NO;2P alt;CRT 15kHz;;
 uballoon;Platform;1996;SunA (Unico license);;NO;false;2;joystick (8-way);NO;2P sim;CRT 15kHz;;
 uccops;Fighter;1992;Irem;;NO;true;2;joystick (8-way);NO;3P sim;CRT 15kHz;;
+uccopsar;Fighter;1992;Irem;;NO;true;2;joystick (8-way);NO;3P sim;CRT 15kHz;;
 uccopsj;Fighter;1992;Irem;;YES;false;2;joystick (8-way);NO;3P sim;CRT 15kHz;;
 uchuuai;Tabletop;1989;Nichibutsu;;NO;false;26;mahjong;YES;1P;CRT 15kHz;;
 uecology;Shooter;1993;Capcom;CP System II;YES;false;3;joystick (8-way),dial;NO;2P sim;CRT 15kHz;;
@@ -5930,6 +5953,7 @@ wbml;Platform;1987;Sega / Westone;;NO;true;2;joystick (8-way);NO;2P alt;CRT 15kH
 wbmlb;Platform;1987;bootleg;;YES;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 wbmljb;Platform;1987;bootleg;;YES;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 wbmljo;Platform;1987;Sega / Westone;;YES;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
+wbmlvc;Platform;1987;Sega / Westone;;YES;false;2;joystick (8-way);NO;2P alt;CRT 15kHz;;
 wboy;Platform;1986;Escape (Sega license);;NO;true;2;joystick (2-way);NO;2P alt;CRT 15kHz;;
 wboy2;Platform;1986;Escape (Sega license);;YES;false;2;joystick (2-way);NO;2P alt;CRT 15kHz;;
 wboy2u;Platform;1986;Escape (Sega license);;YES;false;2;joystick (2-way);NO;2P alt;CRT 15kHz;;
