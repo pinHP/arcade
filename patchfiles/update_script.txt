@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# version=28JAN24
+# version=14FEB24
 
 MAMECONFIG=$1
 HARDWAREMODE_CURRENT=$2
@@ -389,7 +389,7 @@ if [ -e /tmp/template_update ]; then
   
   if [ "$current_template_version" != "$update_template_version" ]; then
     joy2key_start "yesno"
-    dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame definition file\n'_games.template'\n\nCurrent version: $current_template_version\nUpdate version:  $update_template_version\n\nFavourites and existing 'joy'\nparameter entries in this\nfile will be automatically\nbacked up and restored.\n\nDo you want to update?\n\n" 0 0
+    dialog --timeout 30 --title "pinHP Arcade Classics" --defaultno --yesno "\nGame definition file\n'_games.template'\n\nRunning version: $current_template_version\nLatest official: $update_template_version\n\nFavourites and existing 'joy'\nparameter entries in this\nfile will be automatically\nbacked up and restored.\n\nDo you want to install the\nlatest official version?\n\n" 0 0
     response=$?
     if [ "$response" = "0" ]; then
       # Download _games.template
