@@ -1,8 +1,8 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20240214
-patch_date=14FEB24
+patch_version=20240725
+patch_date=25JUL24
 patch_minversion=20210325
-patch_update_info=\n*** 14FEB24 patch update ***\n\n+ AdvanceMAME 3.10 update\n\n! After the update, go to\n  Options > Online Tools\n  > Check for Update\n  and select 'Game settings'\n  to enable the system to\n  recognize new possible\n  game ROMs.\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
+patch_update_info=\n*** 25JUL24 patch update ***\n\n+ Jamma only: Default test for\n  stuck switches during boot\n+ Loop preview videos\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
 patch_general_info=
-patch_disabled=0
+patch_disabled=
