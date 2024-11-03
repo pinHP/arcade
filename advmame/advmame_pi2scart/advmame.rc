@@ -83,7 +83,7 @@ misc_cheat no
 misc_freeplay no
 
 device_video_clock 4 - 50 / 15-16 / 50-70
-# pinhp_timings_version=06FEB24 (SCART)
+# pinhp_timings_version=18MAY24 (SCART)
 
 device_video_modeline "240x192 (61.16 Hz)"   6.4   240 289 388 412   192 208 223 254  -hsync -vsync # 15.53 kHz
 device_video_modeline "240x224 (60.00 Hz)"     9.6   240 388 456 625   224 229 233 256  -hsync -vsync # 15.36 kHz
@@ -122,6 +122,7 @@ device_video_modeline "1600x240 (61.00 Hz)"   31.32   1600 1648 1802 1990   240 
 device_video_modeline "1600x254 (53.20 Hz)"   34.915  1600 1680 1976 2240   254 259 265 293  -hsync -vsync # 15.59 kHz
 device_video_modeline "1664x224 (54.00 Hz)"   33.50   1664 1754 1904 2154   224 242 256 288  -hsync -vsync # 15.55 kHz
 device_video_modeline "1728x224 (60.60 Hz)"      34   1728 1768 1913 2158   224 228 234 260  -hsync -vsync # 15.76 kHz
+device_video_modeline "1824x224 (60.00 Hz)"   39.49   1824 1960 2216 2512   224 224 235 262  -hsync -vsync # 15.72 kHz
 device_video_modeline "1920x224 (55.08 Hz)"   40.80   1920 2040 2287 2599   224 240 251 285  -hsync -vsync # 15.70 kHz
 device_video_modeline "1920x224 (57.50 Hz)"   38.32   1920 1954 2210 2450   224 233 240 272  -hsync -vsync # 15.64 kHz
 device_video_modeline "1920x224 (58.00 Hz)"   39.38   1920 1978 2234 2496   224 233 240 272  -hsync -vsync # 15.78 kHz
@@ -362,7 +363,7 @@ device_video_modeline "1920x260 (57.41 Hz)"   38.71   1920 1986 2236 2470   260 
 304x224x58/display_resize integer
 304x224x59/display_mode 1600x224 (59.18 Hz)
 304x224x59/display_resize integer
-304x224x60/display_mode 1600x224 (60.00 Hz)
+304x224x60/display_mode 1824x224 (60.00 Hz)
 304x224x60/display_resize fractional
 304x232x60/display_mode 1600x240 (60.00 Hz)
 304x232x60/display_resize integer
