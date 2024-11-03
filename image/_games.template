@@ -1,6 +1,6 @@
 # pinHP Arcade Image
 # Game definition file
-# version=11FEB24
+# version=31OCT24
 
 #
 #   USER EDITABLE:
@@ -29,6 +29,7 @@ game { rom ="1942b" title ="1942 (set 3)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" or
 game { rom ="1943" title ="1943: The Battle of Midway (US)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="1943j" title ="1943: Midway Kaisen (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="1943kai" title ="1943 Kai: Midway Kaisen (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
+game { rom ="1943mii" title ="1943: The Battle of Midway Mark II (US)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="1944" title ="1944: The Loop Master (US 000620)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="1944j" title ="1944: The Loop Master (Japan 000620)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="1945kiii" title ="1945k III" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
@@ -318,6 +319,7 @@ game { rom ="astrxeac" title ="Asterix (ver EAC)" params ="-0ONE-0TWO-0TRE-1ALL-
 game { rom ="astyanax" title ="The Astyanax" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="asuka" title ="Asuka & Asuka (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="asurabld" title ="Asura Blade - Sword of Dynasty (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="asurabus" title ="Asura Buster - Eternal Warriors (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="asylum" title ="Asylum (prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="atarifb" title ="Atari Football (revision 2)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="atarifb1" title ="Atari Football (revision 1)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -707,6 +709,7 @@ game { rom ="cabalus" title ="Cabal (US set 1, Trackball version)" params ="-0ON
 game { rom ="cabalus2" title ="Cabal (US set 2, Trackball version)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="cabaret" title ="Cabaret" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="cachat" title ="Cachat (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="cadanglr" title ="Angler Dangler (Cassette)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="cadash" title ="Cadash (World)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="cadashf" title ="Cadash (France)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="cadashi" title ="Cadash (Italy)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -770,6 +773,7 @@ game { rom ="cball" title ="Cannonball (Atari, prototype)" params ="-0ONE-0TWO-0
 game { rom ="cbasebal" title ="Capcom Baseball (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="cbdash" title ="Boulder Dash (Cassette)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="cbnj" title ="Bump N Jump (Cassette)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
+game { rom ="cbombers" title ="Chase Bombers" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="cbtime" title ="Burger Time (Cassette)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="cburnrb2" title ="Burnin' Rubber (Cassette, set 2)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="cburnrub" title ="Burnin' Rubber (Cassette, set 1)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
@@ -796,6 +800,7 @@ game { rom ="centtime" title ="Centipede (1 player, timed)" params ="-0ONE-0TWO-
 game { rom ="cerberus" title ="Cerberus" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
 game { rom ="cexplore" title ="Explorer (Cassette)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="cfghtice" title ="Fighting Ice Hockey (Cassette)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
+game { rom ="cfishing" title ="Fishing (Cassette)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="cflyball" title ="Flying Ball (Cassette)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="cgangpzj" title ="Cosmo Gang the Puzzle (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="cgangpzl" title ="Cosmo Gang the Puzzle (US)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -1014,6 +1019,7 @@ game { rom ="crossbow" title ="Crossbow (version 2.0)" params ="-0ONE-0TWO-0TRE-
 game { rom ="crshrac2" title ="Lethal Crash Race (set 2)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="crshrace" title ="Lethal Crash Race (set 1)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="crsword" title ="Crossed Swords" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="crswd2bl" title ="Crossed Swords 2 (bootleg of CD version)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="cruisin" title ="Cruisin" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="crush" title ="Crush Roller (Kural Samno)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="crush2" title ="Crush Roller (Kural Esco - bootleg?)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
@@ -1121,6 +1127,7 @@ game { rom ="danchih" title ="Danchi de Hanafuoda (J 990607 V1.400)" params ="-0
 game { rom ="dangar" title ="Dangar - Ufo Robo (12/1/1986)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="dangar2" title ="Dangar - Ufo Robo (9/26/1986)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="dangarb" title ="Dangar - Ufo Robo (bootleg)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
+game { rom ="dangerex" title ="Danger Express (prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="dangerz" title ="Danger Zone" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="dangseed" title ="Dangerous Seed (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="dankuga" title ="Dan-Ku-Ga (Ver 0.0J 1994/12/13) (Prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -1317,6 +1324,7 @@ game { rom ="dkongjrb" title ="Donkey Kong Jr. (bootleg)" params ="-0ONE-0TWO-0T
 game { rom ="dkongjrj" title ="Donkey Kong Jr. (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="dkongjrm" title ="Donkey Kong Jr. (Moon Cresta hardware)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="dkongo" title ="Donkey Kong (US set 2)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
+game { rom ="dkongx" title ="Donkey Kong II - Jumpman Returns (V1.2) (hack)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="dlair" title ="Dragon's Lair" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="dleague" title ="Dynamite League (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="dmndrby" title ="Diamond Derby (set 1)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -1576,6 +1584,8 @@ game { rom ="fantlnda" title ="Fantasy Land (set 2)" params ="-0ONE-0TWO-0TRE-1A
 game { rom ="fantsia2" title ="Fantasia II (Explicit)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
 game { rom ="fantsy95" title ="Fantasy '95" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="fantzn2" title ="Fantasy Zone 2" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="fantzn2x" title ="Fantasy Zone II - The Tears of Opa-Opa (System 16C version, prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="fantzn2xp" title ="Fantasy Zone II - The Tears of Opa-Opa (System 16C version, prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="fantzon1" title ="Fantasy Zone (set 1, unprotected)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="fantzone" title ="Fantasy Zone (set 2, unprotected)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="farmer" title ="Farmers Rebellion" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -2128,6 +2138,7 @@ game { rom ="hal21j" title ="HAL21 (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" 
 game { rom ="halleycj" title ="Halley's Comet (Japan set 2)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="halleys" title ="Halley's Comet (US)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="halleysc" title ="Halley's Comet (Japan set 1)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
+game { rom ="hamaway" title ="Hammer Away (Japan, prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="hanaawas" title ="Hana Awase (Flower Matching)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="hanagumi" title ="Hanagumi Taisen Columns - Sakura Wars (J 971007 V1.010)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="hanakanz" title ="Hana Kanzashi (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -2279,6 +2290,7 @@ game { rom ="housemn2" title ="House Mannequin Roppongi Live hen (Japan 870418)"
 game { rom ="housemnq" title ="House Mannequin (Japan 870217)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="hpolym84" title ="Hyper Olympic '84" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="hpuncher" title ="Hard Puncher (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="hsf2" title ="Hyper Street Fighter II: The Anniversary Edition (Asia 040202)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="hstenn10" title ="Hot Shots Tennis (V1.0)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="hstennis" title ="Hot Shots Tennis (V1.1)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="htchctch" title ="Hatch Catch" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -2382,6 +2394,7 @@ game { rom ="invho2" title ="Invinco / Head On 2" params ="-0ONE-0TWO-0TRE-1ALL-
 game { rom ="invinco" title ="Invinco" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="invrvnga" title ="Invader's Revenge (Dutchford)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="invrvnge" title ="Invader's Revenge" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
+game { rom ="inyourfa" title ="In Your Face (North America, prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="ipminvad" title ="IPM Invader" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="iqblock" title ="IQ-Block" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="irobot" title ="I, Robot" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -2721,13 +2734,14 @@ game { rom ="le2" title ="Lethal Enforcers II: Gun Fighters (ver EAA)" params ="
 game { rom ="le2j" title ="Lethal Enforcers II: Gun Fighters (ver JAA)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="le2u" title ="Lethal Enforcers II: Gun Fighters (ver UAA)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="leaguemn" title ="Yakyuu Kakutou League-Man (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="leds2011" title ="Led Storm Rally 2011 (World)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="ledstorm" title ="Led Storm (US)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="legend" title ="Legend" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="legendos" title ="Legend of Success Joe / Ashitano Joe Densetsu" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
-game { rom ="legion" title ="Legion (ver 2.03)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
+game { rom ="legion" title ="Legion - Spinner-87 (World ver 2.03)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="legionna" title ="Legionnaire (World)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="legionnu" title ="Legionnaire (US)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
-game { rom ="legiono" title ="Legion (ver 1.05)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
+game { rom ="legiono" title ="Chouji Meikyuu Legion (Japan bootleg ver 1.05)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="legofair" title ="Koukuu Kihei Monogatari - The Legend of Air Cavalry (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="lemans24" title ="LeMans 24" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
 game { rom ="lemmings" title ="Lemmings (US Prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -3259,7 +3273,8 @@ game { rom ="mspacmat" title ="Ms. Pac Attack" params ="-0ONE-0TWO-0TRE-1ALL-0FA
 game { rom ="mspacmbe" title ="Ms. Pac-Man (bootleg, (encrypted))" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="mspacmnf" title ="Ms. Pac-Man (with speedup hack)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="mspacpls" title ="Ms. Pac-Man Plus" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
-game { rom ="mspuzzle" title ="Miss Puzzle" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
+game { rom ="mspacpls" title ="Ms. Pac-Man Plus" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
+game { rom ="mspactwin" title ="Ms. Pac-Man Twin (Argentina)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="mspuzzln" title ="Miss Puzzle (Nudes)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="mstadium" title ="Main Stadium (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="mstworld" title ="Monsters World" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -3592,6 +3607,7 @@ game { rom ="pacappsp" title ="Paca Paca Passion Special (PSP1/VER.A)" params ="
 game { rom ="pacgal" title ="Pac-Gal" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="pacheart" title ="Pac-Man (Hearts)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" joy ="4" }
 game { rom ="pachiten" title ="Medal Mahjong Pachi-Slot Tengoku [BET] (Japan)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="packbang" title ="Pack'n Bang Bang" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="pacland" title ="Pac-Land (set 1)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="pacland2" title ="Pac-Land (set 2)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
 game { rom ="pacland3" title ="Pac-Land (set 3)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
@@ -5176,6 +5192,7 @@ game { rom ="steelta1" title ="Steel Talons (rev 1)" params ="-0ONE-0TWO-0TRE-1A
 game { rom ="steeltag" title ="Steel Talons (German, rev 2)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="steeltal" title ="Steel Talons (rev 2)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="steeltap" title ="Steel Talons (prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
+game { rom ="steelwkr" title ="Steel Worker" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
 game { rom ="stellcas" title ="Stellar Castle (Elettronolo)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
 game { rom ="stepstag" title ="Stepping Stage" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
 game { rom ="stfight" title ="Street Fight (Germany)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
@@ -6024,6 +6041,7 @@ game { rom ="willowj" title ="Willow (Japan, Japanese)" params ="-0ONE-0TWO-0TRE
 game { rom ="willowje" title ="Willow (Japan, English)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="wilytowr" title ="Wily Tower" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="windheat" title ="Winding Heat" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
+game { rom ="wingforc" title ="Wing Force (Japan, prototype)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="v" }
 game { rom ="wingwar" title ="Wing War (US)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="wingwara" title ="Wing War" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" }
 game { rom ="wink" title ="Wink (set 1)" params ="-0ONE-0TWO-0TRE-1ALL-0FAV" orientation ="h" joy ="4" }
