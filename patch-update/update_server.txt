@@ -7,5 +7,6 @@ advmame_rc_pi2scart=https://drive.google.com/uc?export=download&id=1rbrAqU8Jxx85
 pinhp_timings_jamma=https://drive.google.com/uc?export=download&id=16psWiRcLBqalcNVJPquaF-tqriLpgz8o
 pinhp_timings_scart=https://drive.google.com/uc?export=download&id=1tk1Jil5-clGUDFwxNZ7s92E8HOMReEFg
 update_script=https://drive.google.com/uc?export=download&id=1-u9AVaU1K-xAQMv3t7Zg6XQecPRTGR3S
+pinhp_timings_script=https://drive.google.com/uc?export=download&id=17Jw6wvTomEmXX2_yzUqEq7BkIhumQcqD
 templatefile=https://drive.google.com/uc?export=download&id=1KRgN0hGJq4nB2xvs8JpryLIbPOSkdREh
 filterfile=https://drive.google.com/uc?export=download&id=1DmiUakl8MX4zQvQujjvTNo0f9UKxoJIj
