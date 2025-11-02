@@ -1,8 +1,8 @@
 #pinhp_image=pinHP Arcade Classics
 
-patch_version=20241124
-patch_date=24NOV24
+patch_version=20251101
+patch_date=01NOV25
 patch_minversion=20210325
-patch_update_info=\n*** 24NOV24 patch update ***\n\n- Bugfix: Language settings\n  other than <us> could\n  cause trouble with Jamma\n  switch test and pinHP menu\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
+patch_update_info=\n*** 01NOV25 patch update ***\n\n  + AdvanceMAME 5.0\n\nIMPORTANT:\nMake sure to also update\n\n  _games.template\n\n  > Online Tools\n   > Check for Update\n    > Game Settings\n\n***   This update does   ***\n***    NOT change any    ***\n*** settings or hiscores ***\n\n
 patch_general_info=
 patch_disabled=
